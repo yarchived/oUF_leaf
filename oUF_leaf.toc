@@ -1,0 +1,25 @@
+## Interface: 40000
+## Title: oUF |cffff8800leaf|r
+## Notes: A customed layout (and the author plays druid)
+## Author: yleaf
+## X-oUF: OUFLEAF_OUF
+## OptionalDeps: !ClassColors
+
+core.lua
+
+oUF\oUF.xml
+
+leaf.lua
+leaf.xml
+
+clickcast_set.lua
+raid_debuff_data.lua
+
+layout.lua
+tank.lua
+
+raid.lua
+# hud.lua
+# arena.lua
+
+
