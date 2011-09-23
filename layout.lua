@@ -580,22 +580,19 @@ local player = oUF:Spawn('player', 'oUF_leaf_Player')
 player:SetPoint('CENTER', UIParent, -300, -180)
 leaf.units.player = player
 
-local target = oUF:Spawn('target', 'oUF_leaf_Target')
-target:SetPoint('CENTER', UIParent, 300, -180)
-leaf.units.target = target
+leaf.units.target = oUF:Spawn('target', 'oUF_leaf_Target')
+leaf.units.target:SetPoint('CENTER', UIParent, 300, -180)
 
 oUF:SetActiveStyle'leaf-Tiny'
-local tot = oUF:Spawn('targettarget', 'oUF_leaf_TOT')
-tot:SetPoint('TOPRIGHT', oUF.units.target, 'BOTTOMRIGHT', 0, -5)
-leaf.units.tot = tot
-local focus = oUF:Spawn('focus', 'oUF_leaf_Focus')
-focus:SetPoint('TOPLEFT', oUF.units.player, 'BOTTOMLEFT', 0, -5)
-leaf.units.focus = focus
+leaf.units.tot = oUF:Spawn('targettarget', 'oUF_leaf_TOT')
+leaf.units.tot:SetPoint('TOPRIGHT', leaf.units.target, 'BOTTOMRIGHT', 0, -5)
+
+leaf.units.focus = oUF:Spawn('focus', 'oUF_leaf_Focus')
+leaf.units.focus:SetPoint('TOPLEFT', leaf.units.player, 'BOTTOMLEFT', 0, -5)
 
 oUF:SetActiveStyle'leaf-Pet'
-local pet = oUF:Spawn('pet', 'oUF_leaf_Pet')
-pet:SetPoint('BOTTOMLEFT', oUF.units.player, 'TOPLEFT', 0, 5)
-leaf.units.pet = pet
+leaf.units.pet = oUF:Spawn('pet', 'oUF_leaf_Pet')
+leaf.units.pet:SetPoint('BOTTOMLEFT', leaf.units.player, 'TOPLEFT', 0, 5)
 
 leaf.units.player:SetScale(leaf.frameScale)
 leaf.units.target:SetScale(leaf.frameScale)
