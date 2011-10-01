@@ -1,4 +1,4 @@
--- This file is hereby placed in the Public Domain
+
 local _, ns = ...
 local oUF = ns.oUF or oUF
 local leaf = ns.leaf

@@ -1,22 +1,28 @@
 ## Interface: 40000
 ## Title: oUF |cffff8800leaf|r
-## Notes: A customed layout (and the author plays druid)
-## Author: yleaf
-## X-oUF: OUFLEAF_OUF
 ## OptionalDeps: !ClassColors
+## Dependencies: oUF
 
-core.lua
+## X-Email: yaroot>gmail<com
+## X-Website: https://github.com/yaroot
 
-leaf.lua
-leaf.xml
+libs/LibStub.lua
+libs/CallbackHandler-1.0.lua
+libs/LibDataBroker-1.1.lua
 
-clickcast_set.lua
-raid_debuff_data.lua
 
-layout.lua
-tank.lua
+core/core.lua
+core/leaf.xml
+core/leaf.lua
+core/clickcast.lua
 
-raid.lua
-# hud.lua
-# arena.lua
+config/clickcast.lua
+config/debuffs.lua
+
+layout\layout.lua
+layout\tank.lua
+layout\raid.lua
+#layout\hud.lua
+#layout\arena.lua
+
 
