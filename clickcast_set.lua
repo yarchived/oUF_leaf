@@ -149,12 +149,12 @@ end
 
 local objs = {}
 
-local function init(self)
+local function init(self, event)
     -- I cheat a little bit, hence it should be run through the secure closure.
     -- But what the heck, it's easier to do.
     if(InCombatLockdown()) then
         return self:RegisterEvent('PLAYER_REGEN_ENABLED', init)
-    elseif(self:IsEventRegistered'PLAYER_REGEN_ENABLED') then
+    elseif(evnet == 'PLAYER_REGEN_ENABLED') then
         self:UnregisterEvent('PLAYER_REGEN_ENABLED', init)
     end
 

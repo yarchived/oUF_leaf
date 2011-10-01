@@ -7,8 +7,6 @@
 
 core.lua
 
-oUF\oUF.xml
-
 leaf.lua
 leaf.xml
 
@@ -21,5 +19,4 @@ tank.lua
 raid.lua
 # hud.lua
 # arena.lua
-
 

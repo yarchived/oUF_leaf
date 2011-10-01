@@ -2,9 +2,7 @@
 local _, ns = ...
 local oUF = ns.oUF or oUF
 
-local leaf = {}
-ns.leaf = leaf
-oUF_leaf = leaf
+local leaf = ns.leaf
 
 leaf.noraid = false
 leaf.noarena = false
