@@ -427,81 +427,22 @@ local function styleFunc(settings, self, unit)
             --druidPower:SetPoint('BOTTOM', self.Power)
             --self:Tag(druidPower, '[leaf:druidpower]')
 
-            self.DruidPowerBar = CreateFrame('StatusBar', nil, self)
-            self.DruidPowerBar:SetStatusBarTexture(texture)
-            self.DruidPowerBar:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', 0, 0)
-            self.DruidPowerBar:SetPoint('RIGHT', self)
-            self.DruidPowerBar:SetHeight(2)
-            self.DruidPowerBar.CustomVisibility = function(bar, ptype, ptoken, cur, max)
-                if(ptoken ~= 'MANA') then
-                    return true
-                else
-                    return cur ~= max
-                end
-            end
-            self.DruidPowerBar.CustomColor = noop
-            self.DruidPowerBar.showMana = true
-            self.DruidPowerBar.showEnergy = true
+            self.DruidMana = CreateFrame('StatusBar', nil, self)
+            self.DruidMana:SetStatusBarTexture(texture)
+            self.DruidMana:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', 0, 0)
+            self.DruidMana:SetPoint('RIGHT', self)
+            self.DruidMana:SetHeight(2)
 
-            self.DruidPowerBar.bg = self.DruidPowerBar:CreateTexture(nil, 'BORDER')
-            self.DruidPowerBar.bg:SetAllPoints(self.DruidPowerBar)
-            self.DruidPowerBar.bg:SetTexture(texture)
+            --self.DruidMana.colorClass = true
+            self.DruidMana.frequentUpdates = true
+
+            self.DruidMana.bg = self.DruidMana:CreateTexture(nil, 'BORDER')
+            self.DruidMana.bg:SetAllPoints(self.DruidMana)
+            self.DruidMana.bg:SetTexture(texture)
 
             local r, g, b = unpack(self.colors.class[class])
-            self.DruidPowerBar:SetStatusBarColor(r, g, b)
-            self.DruidPowerBar.bg:SetVertexColor(r*.3, g*.3, b*.3)
-
-        --elseif class == 'DEATHKNIGHT' then
-        --  self.Runes = CreateFrame('Frame', nil, self)
-        --  self.Runes:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', 0, 1)
-        --  self.Runes:SetPoint('RIGHT', self, 'RIGHT')
-        --  self.Runes:SetHeight(7)
-        --  self.Runes:SetBackdrop(backdrop)
-        --  self.Runes:SetBackdropColor(0, 0, 0, .5)
-
-        --  for i = 1, 6 do
-        --      self.Runes[i] = CreateFrame('StatusBar', nil, self.Runes)
-        --      self.Runes[i]:SetStatusBarTexture(texture)
-
-        --        self.Runes[i]:SetHeight(7)
-        --        self.Runes[i]:SetWidth(230/6-1)
-
-        --        if (i~=1) then
-        --            self.Runes[i]:SetPoint('TOPLEFT', self.Runes[i-1], 'TOPRIGHT', 1, 0)
-        --        else
-        --            self.Runes[i]:SetPoint('TOPLEFT', self.Runes, 'TOPLEFT', 0, 0)
-        --        end
-
-        --      self.Runes[i].bg = self.Runes[i]:CreateTexture(nil, 'BORDER')
-        --      self.Runes[i].bg:SetAllPoints(self.Runes[i])
-        --      self.Runes[i].bg:SetTexture(texture)
-        --      self.Runes[i].bg.multiplier = .5
-        --  end
-        --elseif class == 'SHAMAN' then
-        --  self.TotemBar = {}
-        --  self.TotemBar.destroy = true
-        --  for i = 1, 4 do
-        --      self.TotemBar[i] = CreateFrame('StatusBar', nil, self)
-
-        --      self.TotemBar[i]:SetHeight(7)
-        --      self.TotemBar[i]:SetWidth(230/4 - .85)
-        --      if i == 1 then
-        --          self.TotemBar[i]:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', 0, 1)
-        --      else
-        --          self.TotemBar[i]:SetPoint('TOPLEFT', self.TotemBar[i-1], 'TOPRIGHT', 1, 0)
-        --      end
-
-        --      self.TotemBar[i]:SetStatusBarTexture(texture)
-        --      self.TotemBar[i]:SetBackdrop(backdrop)
-        --      self.TotemBar[i]:SetBackdropColor(0, 0, 0)
-        --      self.TotemBar[i]:SetMinMaxValues(0, 1)
-
-        --      self.TotemBar[i].bg = self.TotemBar[i]:CreateTexture(nil, 'BORDER')
-        --      self.TotemBar[i].bg:SetAllPoints(self.TotemBar[i])
-        --      self.TotemBar[i].bg:SetTexture(texture)
-        --      --self.TotemBar[i].bg:SetVertexColor(0.15, 0.15, 0.15)
-        --      self.TotemBar[i].bg.multiplier = .3
-        --  end
+            self.DruidMana:SetStatusBarColor(r, g, b)
+            self.DruidMana.bg:SetVertexColor(r*.3, g*.3, b*.3)
         end
     end
 
