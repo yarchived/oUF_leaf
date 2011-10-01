@@ -256,21 +256,12 @@ local function styleFunc(settings, self, unit)
     self.Health:SetStatusBarColor(0,0,0, .75)
 
     self.Health.frequentUpdates = true
+    self.Health.Override = OverrideUpdateHealth
 
     self.health_bg = self.Health:CreateTexture(nil, 'BORDER')
     self.health_bg:SetAllPoints(self.Health)
     self.health_bg:SetTexture(texture)
 
-    if leaf.raid_mod == 2 then
-        self.Health.colorDisconnected = true
-        self.Health.colorClass = true
-
-        self.Health:SetStatusBarTexture([[Interface\AddOns\oUF_leaf\media\FlatSmooth]])
-        self.health_bg:SetTexture([[Interface\AddOns\oUF_leaf\media\FlatSmooth]])
-        self.health_bg:SetVertexColor(0,0,0)
-    else -- grid-like
-        self.Health.Override = OverrideUpdateHealth
-    end
 
     self.Power = CreateFrame('StatusBar', nil, self)
     self.Power:SetOrientation('VERTICAL')

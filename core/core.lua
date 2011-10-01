@@ -1,9 +1,10 @@
 
-local _, ns = ...
-local oUF = ns.oUF or oUF
+local _NAME, _NS = ...
+local oUF = _NS.oUF or oUF
 
-ns.leaf = {}
-oUF_leaf = ns.leaf
+local leaf = {}
 
+_G[_NAME] = leaf
+_NS.leaf = leaf
 
 

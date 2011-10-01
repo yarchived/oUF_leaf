@@ -4,8 +4,8 @@ local oUF = ns.oUF or oUF
 local leaf = ns.leaf
 
 local _, class = UnitClass'player'
-local texture = leaf.color_mod == 2 and [=[Interface\AddOns\oUF_leaf\media\FlatSmooth]=] or [=[Interface\AddOns\oUF_leaf\media\Minimalist]=]
-local bubbleTex = [=[Interface\AddOns\oUF_leaf\media\bubbleTex]=]
+local texture =  [[Interface\AddOns\oUF_leaf\media\Minimalist]] --[[Interface\AddOns\oUF_leaf\media\FlatSmooth]]
+local bubbleTex = [[Interface\AddOns\oUF_leaf\media\bubbleTex]]
 local backdrop = leaf.backdrop
 local noop = function() end
 
@@ -121,6 +121,10 @@ local function styleFunc(settings, self, unit)
     self.Health.bg:SetTexture(texture)
     self.Health.bg.multiplier = .3
 
+    self.Health.colorSmooth = true
+    self.Health.colorTapping = true
+    self.Health.colorDisconnected = true
+
     self.Power = CreateFrame('StatusBar', nil, self)
     self.Power:SetPoint('TOPLEFT', self.Health, 'BOTTOMLEFT')
     self.Power:SetPoint('BOTTOMRIGHT', self)
@@ -131,22 +135,8 @@ local function styleFunc(settings, self, unit)
     self.Power.bg:SetTexture(texture)
     self.Power.bg.multiplier = .3
 
-    if leaf.color_mod == 2 then
-        self.Health.colorTapping = true
-        self.Health.colorDisconnected = true
-        self.Health.colorClass = true
-        self.Health.colorClassPet = true
-
-        self.Power.colorPower = true
-        self.Power.colorReaction = true
-    else
-        self.Health.colorSmooth = true
-        self.Health.colorTapping = true
-        self.Health.colorDisconnected = true
-
-        self.Power.colorClass = true
-        self.Power.colorReaction = true
-    end
+    self.Power.colorClass = true
+    self.Power.colorReaction = true
 
     local tag1 = self.Health:CreateFontString(nil, 'OVERLAY')
     tag1:SetFont(STANDARD_TEXT_FONT, 11, 'OUTLINE')
@@ -605,14 +595,17 @@ leaf.units.pet:SetScale(leaf.frameScale)
 
 oUF:SetActiveStyle'leaf-Boss'
 for i = 1, MAX_BOSS_FRAMES do
-    local f = oUF:Spawn('boss' .. i, 'oUF_leaf_Boss' .. i)
-    local t = oUF:Spawn('boss' .. i .. 'target', 'oUF_leaf_BossTarget' .. i)
+
+    local unit = 'boss' .. i
+    local unittar = unit .. 'target'
+    local f = oUF:Spawn(unit, 'oUF_leaf_Boss' .. i)
+    local t = oUF:Spawn(unittar, 'oUF_leaf_BossTarget' .. i)
 
     f:SetScale(leaf.frameScale)
     t:SetScale(leaf.frameScale)
 
-    leaf.units['boss'..i] = f
-    leaf.units['boss'..i ..'target'] = f
+    leaf.units[unit] = f
+    leaf.units[unittar] = f
 
     if i == 1 then
         f:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 160, -25)
@@ -621,12 +614,5 @@ for i = 1, MAX_BOSS_FRAMES do
     end
 
     t:SetPoint('TOPLEFT', f, 'TOPRIGHT', 5, 0)
-end
-
--- kill the frames that spew like shits
-local function fuk(self)
-    self:UnregisterAllEvents()
-    self:SetScript('OnUpdate', nil)
-    self:Hide()
 end
 

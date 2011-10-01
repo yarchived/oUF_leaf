@@ -1,13 +1,11 @@
 
 local _, ns = ...
-local oUF = ns.oUF or oUF
+local oUF = _NS.oUF or oUF
 
 local leaf = ns.leaf
 
 leaf.noraid = false
 leaf.noarena = false
-leaf.raid_mod = 1 -- 1. Grid-like 2. Normal
-leaf.color_mod = 1 -- 1. Caellian 2. Normal
 leaf.AuraWatch = true
 leaf.auraWatchSize = 32
 
