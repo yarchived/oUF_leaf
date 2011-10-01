@@ -3,7 +3,7 @@ local _, ns = ...
 local oUF = ns.oUF or oUF
 local leaf = ns.leaf
 
-local _, class = UnitClass'player'
+local class = leaf.class
 local texture =  [[Interface\AddOns\oUF_leaf\media\Minimalist]] --[[Interface\AddOns\oUF_leaf\media\FlatSmooth]]
 local bubbleTex = [[Interface\AddOns\oUF_leaf\media\bubbleTex]]
 local backdrop = leaf.backdrop
@@ -421,7 +421,7 @@ local function styleFunc(settings, self, unit)
         self.threatpct.frequentUpdates = .2
         self:Tag(self.threatpct, '[leaf:threatpct]')
 
-        if class == 'DRUID' then
+        if(class == 'DRUID') then
             --local druidPower = self.Health:CreateFontString(nil, 'OVERLAY')
             --druidPower:SetFont(STANDARD_TEXT_FONT, 11, 'OUTLINE')
             --druidPower:SetPoint('BOTTOM', self.Power)

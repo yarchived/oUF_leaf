@@ -1,7 +1,6 @@
 local tinsert = table.insert
 
 local _, ns = ...
-local _, class = UnitClass'player'
 
 local csets = {}
 ns.ClickCastDB = csets
@@ -9,90 +8,90 @@ local add = function(set)
     tinsert(csets, set)
 end
 
-if class == 'DRUID' then
+if(ns.leaf.class == 'DRUID') then
     -- {{{
     add({
-		['type'] = 'spell',
-		['modifier'] = 'Alt-',
-		['button'] = 1,
-		['value'] = 774, --回春术
-	})
+        ['type'] = 'spell',
+        ['modifier'] = 'Alt-',
+        ['button'] = 1,
+        ['value'] = 774, --回春术
+    })
     add({
-		['type'] = 'spell',
-		['modifier'] = 'Ctrl-',
-		['button'] = 2,
-		['value'] = 5185, --治疗之触
-	})
+        ['type'] = 'spell',
+        ['modifier'] = 'Ctrl-',
+        ['button'] = 2,
+        ['value'] = 5185, --治疗之触
+    })
     add({
-		['type'] = 'spell',
-		['modifier'] = 'Shift-',
-		['button'] = 1,
-		['value'] = 2782, --解除诅咒
-	})
+        ['type'] = 'spell',
+        ['modifier'] = 'Shift-',
+        ['button'] = 1,
+        ['value'] = 2782, --解除诅咒
+    })
     add({
-		['type'] = 'spell',
-		['modifier'] = 'Ctrl-',
-		['button'] = 4,
-		['value'] = 48438, --野性成长
-	})
+        ['type'] = 'spell',
+        ['modifier'] = 'Ctrl-',
+        ['button'] = 4,
+        ['value'] = 48438, --野性成长
+    })
     add({
-		['type'] = 'spell',
-		['modifier'] = 'Shift-',
-		['button'] = 4,
-		['value'] = 50464, --滋補術
-	})
+        ['type'] = 'spell',
+        ['modifier'] = 'Shift-',
+        ['button'] = 4,
+        ['value'] = 50464, --滋補術
+    })
     add({
-		['type'] = 'spell',
-		['modifier'] = 'Ctrl-',
-		['button'] = 1,
-		['value'] = 2893, --驱毒术
-	})
+        ['type'] = 'spell',
+        ['modifier'] = 'Ctrl-',
+        ['button'] = 1,
+        ['value'] = 2893, --驱毒术
+    })
     add({
-		['type'] = 'spell',
-		['modifier'] = 'Alt-',
-		['button'] = 2,
-		['value'] = 8936, --'愈合'
-	})
+        ['type'] = 'spell',
+        ['modifier'] = 'Alt-',
+        ['button'] = 2,
+        ['value'] = 8936, --'愈合'
+    })
     add({
-		['type'] = 'spell',
-		['modifier'] = 'Shift-',
-		['button'] = 2,
-		['value'] = 33763, --'生命绽放'
-	})
+        ['type'] = 'spell',
+        ['modifier'] = 'Shift-',
+        ['button'] = 2,
+        ['value'] = 33763, --'生命绽放'
+    })
     add({
-		['type'] = 'spell',
-		['modifier'] = 'Alt-',
-		['button'] = 5,
-		['value'] = 29166, -- 激活
-	})
+        ['type'] = 'spell',
+        ['modifier'] = 'Alt-',
+        ['button'] = 5,
+        ['value'] = 29166, -- 激活
+    })
     add({
-		['type'] = 'spell',
-		['modifier'] = 'Alt-',
-		['button'] = 4,
-		['value'] = 18562, -- 迅癒
-	})
+        ['type'] = 'spell',
+        ['modifier'] = 'Alt-',
+        ['button'] = 4,
+        ['value'] = 18562, -- 迅癒
+    })
     add({
-		['type'] = 'assist',
-		['modifier'] = 'Shift-',
-		['button'] = 5,
-	})
+        ['type'] = 'assist',
+        ['modifier'] = 'Shift-',
+        ['button'] = 5,
+    })
     add({
-		['type'] = 'focus',
-		['modifier'] = 'Alt-Ctrl-',
-		['button'] = 2,
-	})
+        ['type'] = 'focus',
+        ['modifier'] = 'Alt-Ctrl-',
+        ['button'] = 2,
+    })
     add({
-		['type'] = 'macro',
-		['modifier'] = 'Ctrl-',
-		['button'] = 5,
-		['value'] = '/cast [target=mouseover,combat]' ..
-                    GetSpellInfo(20484) ..
-                    ';[target=mouseover]' ..
-                    GetSpellInfo(50769),
-                    -- 复生, 起死回生
-	})
+        ['type'] = 'macro',
+        ['modifier'] = 'Ctrl-',
+        ['button'] = 5,
+        ['value'] = '/cast [target=mouseover,combat]' ..
+        GetSpellInfo(20484) ..
+        ';[target=mouseover]' ..
+        GetSpellInfo(50769),
+        -- 复生, 起死回生
+    })
     --}}}
-elseif(class == 'PRIEST') then
+elseif(ns.leaf.class == 'PRIEST') then
 
 end
 

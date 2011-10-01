@@ -1,29 +1,19 @@
 
 local _, ns = ...
-local oUF = _NS.oUF or oUF
+local oUF = ns.oUF or oUF
 
 local leaf = ns.leaf
 
-leaf.noraid = false
-leaf.noarena = false
-leaf.AuraWatch = true
-leaf.auraWatchSize = 32
-
-leaf.frameScale = 1.1 -- global scale
-leaf.HealComm = true
-leaf.raid_druid_hots = true
-leaf.test_mod = false
-
 leaf.units = {}
 
-local _, class = UnitClass'player'
-local playername = UnitName'player'
+leaf.class = select(2, UnitClass'player')
+
 leaf.backdrop = {
 	bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
 	insets = {top = -1, left = -1, bottom = -1, right = -1},
 }
 
-leaf.playerAuraFilter = class == 'DRUID' and {
+leaf.playerAuraFilter = leaf.class == 'DRUID' and {
 	[GetSpellInfo(52610)] = true, -- Savage Roar
 	[GetSpellInfo(48517)] = true, -- Eclipse
 	[GetSpellInfo(50334)] = true, -- Berserk

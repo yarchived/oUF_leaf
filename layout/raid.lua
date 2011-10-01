@@ -5,7 +5,7 @@ local leaf = ns.leaf
 
 if leaf.noraid then return end
 
-local _, class = UnitClass'player'
+local class = leaf.class
 local texture = [[Interface\AddOns\oUF_leaf\media\white]]
 local glowTex = [[Interface\AddOns\oUF_leaf\media\glowTex]]
 local backdrop = leaf.backdrop
@@ -286,7 +286,7 @@ local function styleFunc(settings, self, unit)
     aggro:SetPoint('TOPLEFT', self.Health, 0, 22)
     self:Tag(aggro, '[leaf:threat]')]]
 
-    if class == 'DRUID' and leaf.raid_druid_hots then
+    if(class == 'DRUID') then
         setupDruidHots(self)
     end
 
