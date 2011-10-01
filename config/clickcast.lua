@@ -1,6 +1,8 @@
-local tinsert = table.insert
 
 local _, ns = ...
+
+local oUF = ns.oUF or oUF
+local tinsert = table.insert
 
 local csets = {}
 ns.ClickCastDB = csets
@@ -165,5 +167,5 @@ local function init(self, event)
     end
 end
 
-ns.oUF:RegisterInitCallback(init)
+oUF:RegisterInitCallback(init)
 

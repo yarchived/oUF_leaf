@@ -521,9 +521,10 @@ local function styleFunc(settings, self, unit)
     end
 
     if (unit ~= 'player') and (style ~= 'boss') then
-        self.Range = true
-        self.inRangeAlpha = 1
-        self.outsideRangeAlpha = .4
+        self.Range = {
+            inRangeAlpha = 1,
+            outsideRangeAlpha = .4,
+        }
     end
 
     if unit == 'player' then

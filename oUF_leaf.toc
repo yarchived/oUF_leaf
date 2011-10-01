@@ -1,20 +1,17 @@
 ## Interface: 40000
 ## Title: oUF |cffff8800leaf|r
-## OptionalDeps: !ClassColors
+## OptionalDeps: !ClassColors, oUF_RaidDebuffs
 ## Dependencies: oUF
 
-## X-Email: yaroot>gmail<com
-## X-Website: https://github.com/yaroot
+## X-Website: https://github.com/yaroot/oUF_leaf
 
 libs\LibStub.lua
 libs\CallbackHandler-1.0.lua
 libs\LibDataBroker-1.1.lua
 
-
 core\core.lua
 core\leaf.xml
 core\leaf.lua
-core\clickcast.lua
 
 config\clickcast.lua
 config\debuffs.lua
@@ -24,5 +21,4 @@ layout\tank.lua
 layout\raid.lua
 #layout\hud.lua
 #layout\arena.lua
-
 
