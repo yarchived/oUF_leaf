@@ -6,18 +6,18 @@
 ## X-Email: yaroot>gmail<com
 ## X-Website: https://github.com/yaroot
 
-libs/LibStub.lua
-libs/CallbackHandler-1.0.lua
-libs/LibDataBroker-1.1.lua
+libs\LibStub.lua
+libs\CallbackHandler-1.0.lua
+libs\LibDataBroker-1.1.lua
 
 
-core/core.lua
-core/leaf.xml
-core/leaf.lua
-core/clickcast.lua
+core\core.lua
+core\leaf.xml
+core\leaf.lua
+core\clickcast.lua
 
-config/clickcast.lua
-config/debuffs.lua
+config\clickcast.lua
+config\debuffs.lua
 
 layout\layout.lua
 layout\tank.lua
