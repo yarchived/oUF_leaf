@@ -11,6 +11,7 @@ leaf.noarena = false
 leaf.raid_mod = 1 -- 1. Grid-like 2. Normal
 leaf.color_mod = 1 -- 1. Caellian 2. Normal
 leaf.AuraWatch = true
+leaf.auraWatchSize = 32
 
 leaf.frameScale = 1.1 -- global scale
 leaf.HealComm = true

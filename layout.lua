@@ -328,11 +328,12 @@ local function styleFunc(settings, self, unit)
         self.QuestIcon:SetPoint('CENTER', self, 'TOPLEFT')
 
         if(leaf.AuraWatch) then
+            local iconSize = leaf.auraWatchSize
             self.Auras = CreateFrame('Frame', nil, self)
             self.Auras:SetPoint('BOTTOMRIGHT', leaf.units.player.Auras, 'TOPRIGHT', 0, 5)
-            self.Auras:SetHeight(24)
-            self.Auras:SetWidth((24+4+.5)*8)
-            self.Auras.size = 24
+            self.Auras:SetHeight(iconSize)
+            self.Auras:SetWidth((iconSize+4+.5)*8)
+            self.Auras.size = iconSize
             self.Auras.initialAnchor = 'BOTTOMRIGHT'
             self.Auras['growth-x'] = 'LEFT'
             self.Auras['growth-y'] = 'UP'
@@ -369,11 +370,13 @@ local function styleFunc(settings, self, unit)
         end)
     elseif unit == 'player' then
         if leaf.AuraWatch and leaf.playerAuraFilter then
+            local iconSize = leaf.auraWatchSize
+
             self.Auras = CreateFrame('Frame', nil, self)
             self.Auras:SetPoint('TOPRIGHT', self, 'TOPRIGHT', 0, 150)
-            self.Auras:SetHeight(24)
-            self.Auras:SetWidth((24+4+.5)*8)
-            self.Auras.size = 24
+            self.Auras:SetHeight(iconSize)
+            self.Auras:SetWidth((iconSize+4+.5)*8)
+            self.Auras.size = iconSize
             self.Auras.spacing = 4
             self.Auras.initialAnchor = 'BOTTOMRIGHT'
             self.Auras['growth-x'] = 'LEFT'
