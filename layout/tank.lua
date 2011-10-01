@@ -143,7 +143,6 @@ local function updateMenu()
 
     tinsert(menu, {text = '', disabled = true, notCheckable = 1,})
     tinsert(menu, {text = '|cff00ff00Click to set or remove PT|r', disabled = true, notCheckable = 1})
-    tinsert(menu, {text = CLOSE, func = CloseDropDownMenus, notCheckable = 1})
 end
 
 local dataobj = LibStub('LibDataBroker-1.1'):NewDataObject('oUF_leaf',{
