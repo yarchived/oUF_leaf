@@ -349,40 +349,42 @@ local function styleFunc(settings, self, unit)
 
     self.Threat.Override = OverrideThreatUpdate
 
-    self.RaidDebuffs = CreateFrame('Frame', nil, self)
-    self.RaidDebuffs:SetHeight(18)
-    self.RaidDebuffs:SetWidth(18)
-    self.RaidDebuffs:SetPoint('CENTER', self)
-    self.RaidDebuffs:SetFrameStrata'HIGH'
+    if(IsAddOnLoaded'oUF_RaidDebuffs') then
+        self.RaidDebuffs = CreateFrame('Frame', nil, self)
+        self.RaidDebuffs:SetHeight(18)
+        self.RaidDebuffs:SetWidth(18)
+        self.RaidDebuffs:SetPoint('CENTER', self)
+        self.RaidDebuffs:SetFrameStrata'HIGH'
 
-    self.RaidDebuffs:SetBackdrop(backdrop)
+        self.RaidDebuffs:SetBackdrop(backdrop)
 
-    self.RaidDebuffs.icon = self.RaidDebuffs:CreateTexture(nil, 'OVERLAY')
-    self.RaidDebuffs.icon:SetTexCoord(.1,.9,.1,.9)
-    self.RaidDebuffs.icon:SetAllPoints(self.RaidDebuffs)
+        self.RaidDebuffs.icon = self.RaidDebuffs:CreateTexture(nil, 'OVERLAY')
+        self.RaidDebuffs.icon:SetTexCoord(.1,.9,.1,.9)
+        self.RaidDebuffs.icon:SetAllPoints(self.RaidDebuffs)
 
-    self.RaidDebuffs.cd = CreateFrame('Cooldown', nil, self.RaidDebuffs)
-    self.RaidDebuffs.cd:SetAllPoints(self.RaidDebuffs)
+        self.RaidDebuffs.cd = CreateFrame('Cooldown', nil, self.RaidDebuffs)
+        self.RaidDebuffs.cd:SetAllPoints(self.RaidDebuffs)
 
-    self.RaidDebuffs.ShowDispelableDebuff = true
-    self.RaidDebuffs.FilterDispelableDebuff = true
-    self.RaidDebuffs.MatchBySpellName = true
-    self.RaidDebuffs.Debuffs = ns.raid_debuffs
-    --self.RaidDebuffs.DispelPriority = {}
-    --self.RaidDebuffs.DispelFilter = {}
-    --self.RaidDebuffs.DispelColor = {}
+        self.RaidDebuffs.ShowDispelableDebuff = true
+        self.RaidDebuffs.FilterDispelableDebuff = true
+        self.RaidDebuffs.MatchBySpellName = true
+        self.RaidDebuffs.Debuffs = ns.raid_debuffs
+        --self.RaidDebuffs.DispelPriority = {}
+        --self.RaidDebuffs.DispelFilter = {}
+        --self.RaidDebuffs.DispelColor = {}
 
-    --[[
-    self.RaidDebuffs.time = self.RaidDebuffs:CreateFontString(nil, 'OVERLAY')
-    self.RaidDebuffs.time:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
-    self.RaidDebuffs.time:SetPoint('CENTER', self.RaidDebuffs, 'CENTER', 0, 0)
-    self.RaidDebuffs.time:SetTextColor(1, .9, 0)
-    ]]
+        --[[
+        self.RaidDebuffs.time = self.RaidDebuffs:CreateFontString(nil, 'OVERLAY')
+        self.RaidDebuffs.time:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
+        self.RaidDebuffs.time:SetPoint('CENTER', self.RaidDebuffs, 'CENTER', 0, 0)
+        self.RaidDebuffs.time:SetTextColor(1, .9, 0)
+        ]]
 
-    self.RaidDebuffs.count = self.RaidDebuffs:CreateFontString(nil, 'OVERLAY')
-    self.RaidDebuffs.count:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
-    self.RaidDebuffs.count:SetPoint('BOTTOMRIGHT', self.RaidDebuffs, 'BOTTOMRIGHT', 2, 0)
-    self.RaidDebuffs.count:SetTextColor(1, .9, 0)
+        self.RaidDebuffs.count = self.RaidDebuffs:CreateFontString(nil, 'OVERLAY')
+        self.RaidDebuffs.count:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
+        self.RaidDebuffs.count:SetPoint('BOTTOMRIGHT', self.RaidDebuffs, 'BOTTOMRIGHT', 2, 0)
+        self.RaidDebuffs.count:SetTextColor(1, .9, 0)
+    end
 end
 
 oUF:RegisterStyle('leaf-Raid', setmetatable({
