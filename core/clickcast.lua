@@ -99,13 +99,6 @@ end
 
 
 
-
-
-
-
-
-
-
 local init, CreateClick
 
 do
