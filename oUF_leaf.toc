@@ -5,6 +5,11 @@
 
 ## X-Website: https://github.com/yaroot/oUF_leaf
 
+## X-oUF: OUFLEAFCORE
+## X-SlashCmdList: /oufleaf, /oleaf
+## X-SavedVariables: OUFLEAF_FRAMEDB
+## SavedVariables: OUFLEAF_FRAMEDB
+
 libs\LibStub.lua
 libs\CallbackHandler-1.0.lua
 libs\LibDataBroker-1.1.lua
