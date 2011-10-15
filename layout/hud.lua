@@ -6,7 +6,7 @@ local leaf = ns.leaf
 local curve1 = [[Interface\AddOns\oUF_leaf\media\curve1]]
 local curve2 = [[Interface\AddOns\oUF_leaf\media\curve2]]
 
-local xOffset, yOffset = 140, -50
+local xOffset, yOffset = 170, -50
 local width, height = 100, 200
 local GAP = 15
 
@@ -142,6 +142,11 @@ local function styleFunc(self, unit)
     else
         self.Health.SmoothUpdate = true
         self.BarFade = true
+
+        self.combo = self.Health:CreateFontString(nil, 'ARTWORK')
+        self.combo:SetFont(DAMAGE_TEXT_FONT, 40, 'OUTLINE')
+        self.combo:SetPoint('CENTER', UIParent, 0, yOffset - height/2)
+        self:Tag(self.combo, '[leaf:cp]')
     end
 
     --self:SetAttribute('initial-height', 0.000001)
