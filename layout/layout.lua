@@ -318,7 +318,7 @@ local function styleFunc(settings, self, unit)
         self.QuestIcon:SetPoint('CENTER', self, 'TOPLEFT')
 
         if(leaf.AuraWatch) then
-            local iconSize = leaf.auraWatchSize
+            local iconSize = leaf.AuraWatchIconSize
             self.Auras = CreateFrame('Frame', nil, self)
             self.Auras:SetPoint('BOTTOMRIGHT', leaf.units.player.Auras, 'TOPRIGHT', 0, 5)
             self.Auras:SetHeight(iconSize)
@@ -359,8 +359,8 @@ local function styleFunc(settings, self, unit)
             self.CPoints:ForceUpdate()
         end)
     elseif unit == 'player' then
-        if leaf.AuraWatch and leaf.playerAuraFilter then
-            local iconSize = leaf.auraWatchSize
+        if(leaf.AuraWatch) then
+            local iconSize = leaf.AuraWatchIconSize
 
             self.Auras = CreateFrame('Frame', nil, self)
             self.Auras:SetPoint('TOPRIGHT', self, 'TOPRIGHT', 0, 150)
@@ -376,7 +376,11 @@ local function styleFunc(settings, self, unit)
 
             self.Auras.noTooltip = true
 
-            self.Auras.CustomFilter = PlayerAuraCustomFilter
+            self.Auras.CustomFilter = function(icons, unit, icon, name, rank, texture, count, dtype, duration, timeLeft, caster, isStealable, shouldConsolidate, spellID, canApplyAura, isBossDebuff)
+                if(caster == 'player' and duration <= 90) then
+                    return true
+                end
+            end
         end
 
         self.Leader = self.Health:CreateTexture(nil, 'OVERLAY')

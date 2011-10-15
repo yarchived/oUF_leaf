@@ -12,35 +12,6 @@ leaf.backdrop = {
 	insets = {top = -1, left = -1, bottom = -1, right = -1},
 }
 
-leaf.playerAuraFilter = leaf.class == 'DRUID' and {
-	[52610] = true, -- Savage Roar
-	[48517] = true, -- Eclipse
-	[50334] = true, -- Berserk
-	[5217] = true, -- Tiger's Fury
-	[16864] = true, -- Omen of Clarity
-	[22812] = true, -- Barkskin
-	[5229] = true, -- Enrage
-	[22842] = true, -- Frenzied Regeneration
-	[61336] = true, -- Survival Instincts
-}
-for id in next, leaf.playerAuraFilter do
-    local spell = GetSpellInfo(id)
-    if(spell) then
-        leaf.playerAuraFilter[spell] = true
-    end
-    leaf.playerAuraFilter[id] = nil
-end
-
-
---do
---	for _, addon in pairs{'Grid', 'Grid2', 'VuhDo', 'PerfectRaid', 'sRaidFrames', 'HealBot'} do
---		if IsAddOnLoaded(addon) then
---			leaf.noraid = true
---			break
---		end
---	end
---end
-
 local function isLeader(unit)
 	return (UnitInParty(unit) or UnitInRaid(unit)) and UnitIsPartyLeader(unit)
 end

@@ -4,7 +4,7 @@ local leaf = {}
 leaf.noraid = false
 leaf.noarena = false
 leaf.AuraWatch = true
-leaf.auraWatchSize = 32
+leaf.AuraWatchIconSize = 32
 
 leaf.frameScale = 1.1 -- global scale
 leaf.HealComm = true
