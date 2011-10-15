@@ -27,8 +27,8 @@ local function spawn(name, num, ...)
     'oUF-initialConfigFunction', [[
         self:SetWidth(130)
         self:SetHeight(20)
-    ]],
-    ...)
+    ]] .. ns.CLICKCAST_FUNC
+    , ...)
     return header
 end
 

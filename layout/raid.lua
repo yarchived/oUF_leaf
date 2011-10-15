@@ -13,7 +13,7 @@ local backdrop = leaf.backdrop
 -- Druid hots
 local setupDruidHots
 do
-    local Hex = leaf.hex
+    local Hex = leaf.Hex
 
     local spell_dot = {
         [GetSpellInfo(8936)] = Hex(.5, 1, .5) .. '.', -- 愈合
@@ -406,13 +406,12 @@ for i = 1, 8 do
         'showParty', i == 1,
         'showPlayer', i == 1,
         'showSolo', i == 1,
-
         'oUF-initialConfigFunction', [[
             self:SetHeight(35)
             self:SetWidth(45)
             self:SetAttribute('type3', 'menu')
             self:SetAttribute('*type2', nil)
-        ]]
+        ]] .. ns.CLICKCAST_FUNC
         )
     group.SetManyAttributes = leaf.SetManyAttributes
     raid[i] = group
