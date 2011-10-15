@@ -17,13 +17,14 @@ libs\LibDataBroker-1.1.lua
 core\core.lua
 core\leaf.xml
 core\leaf.lua
-
-config\clickcast.lua
-config\debuffs.lua
+core\colors.lua
+core\tags.lua
+core\clickcast_data.lua
+core\clickcast.lua
 
 layout\layout.lua
 layout\tank.lua
 layout\raid.lua
-#layout\hud.lua
+layout\hud.lua
 #layout\arena.lua
 
