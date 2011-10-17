@@ -34,12 +34,13 @@ local colors = setmetatable({
 	--disconnected = {.5,.5,.5},
 	--tapped = {.5,.5,.5},
 	--smooth = {1, 0, 0, 1, 1, 0, 0, 1, 0},
-	runes = {
+    --class = setmetatable({}, {__index = oUF.colors.class}),
+	runes = setmetatable({
 		[1] = {0.69, 0.31, 0.31},
 		[2] = {0.33, 0.59, 0.33},
 		[3] = {0.31, 0.45, 0.63},
 		[4] = {0.84, 0.75, 0.65},
-	},
+	}, {__index = oUF.colors.runes}),
 	tapped = {0.55, 0.57, 0.61},
 	disconnected = {0.84, 0.75, 0.65},
 	smooth = {0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.15, 0.15, 0.15},

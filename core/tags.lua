@@ -24,10 +24,11 @@ oUF.TagEvents['leaf:maxpp'] = 'UNIT_MAXPOWER'
 
 do
     local CC = setmetatable({}, {__index = function(t, i)
-        t[i] = Hex(i)
+        local c = i and colors.class[i]
+        t[i] = c and Hex(c)
         return t[i]
     end})
-    oUF.Tags['leaf:raidcolor'] = function(u) local _, x = UnitClass(u); return CC[colors.class[x or 'WORRIOR']] end
+    oUF.Tags['leaf:raidcolor'] = function(u) local _, x = UnitClass(u); return CC[x or 'WARRIOR'] end
 end
 
 oUF.Tags['leaf:detail'] = function(u)
@@ -59,8 +60,8 @@ oUF.Tags['leaf:smartpp'] = function(u)
 end
 oUF.TagEvents['leaf:smartpp'] = 'UNIT_POWER UNIT_MAXPOWER'
 
-oUF.Tags['leaf:name'] = function(u, ru)
-	local name, realm = UnitName(ru or u)
+oUF.Tags['leaf:name'] = function(u, r)
+	local name, realm = UnitName(r or u)
 	if realm and (realm~='') then name = name .. '-' .. realm end
 	return name
 end
