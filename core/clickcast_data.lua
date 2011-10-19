@@ -38,7 +38,7 @@ if(class == 'DRUID') then
         ['type'] = 'spell',
         ['modifier'] = 'Shift-',
         ['button'] = 1,
-        ['value'] = 2782, --解除诅咒
+        ['value'] = 2782, --净化腐蚀
     })
     add({
         ['type'] = 'spell',
@@ -54,12 +54,6 @@ if(class == 'DRUID') then
     })
     add({
         ['type'] = 'spell',
-        ['modifier'] = 'Ctrl-',
-        ['button'] = 1,
-        ['value'] = 2893, --驱毒术
-    })
-    add({
-        ['type'] = 'spell',
         ['modifier'] = 'Alt-',
         ['button'] = 2,
         ['value'] = 8936, --'愈合'
@@ -70,12 +64,13 @@ if(class == 'DRUID') then
         ['button'] = 2,
         ['value'] = 33763, --'生命绽放'
     })
-    add({
-        ['type'] = 'spell',
-        ['modifier'] = 'Alt-',
-        ['button'] = 5,
-        ['value'] = 29166, -- 激活
-    })
+    -- this is for myself
+--    add({
+--        ['type'] = 'spell',
+--        ['modifier'] = 'Alt-',
+--        ['button'] = 5,
+--        ['value'] = 29166, -- 激活
+--    })
     add({
         ['type'] = 'spell',
         ['modifier'] = 'Alt-',
