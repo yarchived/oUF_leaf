@@ -184,40 +184,41 @@ local HealCommUpdate = function(self, event, unit)
             self.centertext:SetText(oUF.Tags['leaf:raid'](self.unit, self.realUnit))
         end
     else
-        if(bar.Vertical) then
-            bar:SetHeight(bar.Height * inc/max)
-            bar:ClearAllPoints()
-            bar:SetPoint('BOTTOMLEFT', self.Health, 0, min/max * bar.Height)
-        else
-            bar:SetWidth(bar.Width * inc/max)
-            bar:ClearAllPoints()
-            bar:SetPoint('BOTTOMLEFT', self.Health, min/max * bar.Width, 0)
-        end
+        --if(bar.Vertical) then
+        --    bar:SetHeight(bar.Height * inc/max)
+        --    bar:ClearAllPoints()
+        --    bar:SetPoint('BOTTOMLEFT', self.Health, 0, min/max * bar.Height)
+        --else
+        --    bar:SetWidth(bar.Width * inc/max)
+        --    bar:ClearAllPoints()
+        --    bar:SetPoint('BOTTOMLEFT', self.Health, min/max * bar.Width, 0)
+        --end
+        bar:SetMinMaxValues(0, max)
+        bar:SetValue(inc)
+
         bar:Show()
         self.centertext:SetText('|cff50a050+' .. leaf.truncate(inc))
     end
 end
 
 local HealCommCreateBar = function(self)
-    local bar = CreateFrame('StatusBar', nil, self)
+    local bar = CreateFrame('StatusBar', nil, self.Health)
     bar:SetMinMaxValues(0, 1)
     bar:SetValue(1)
-    bar:SetOrientation(self.Health:GetOrientation())
     bar:SetStatusBarTexture(self.Health:GetStatusBarTexture():GetTexture())
     bar:SetStatusBarColor(0, 1, 0, .5)
     bar:SetFrameStrata'TOOLTIP'
 
-    --bar:SetWidth(self.Health:GetWidth())
-    --bar:SetHeight(self.Health:GetHeight())
-    --bar:SetAllPoints(self.Health)
-    --local h, w = bar:GetHeight(), bar:GetWidth()
-    --bar:ClearAllPoints()
-    local h, w = 35, 40
-    bar:SetHeight(h)
-    bar:SetWidth(w)
-    bar.Height = h
-    bar.Width = w
-    bar.Vertical = bar:GetOrientation() == 'VERTICAL'
+    local ori = self.Health:GetOrientation()
+    bar:SetOrientation(ori)
+    bar:SetHeight(self.Health:GetHeight())
+    bar:SetWidth(self.Health:GetWidth())
+
+    if(ori == 'VERTICAL') then
+        bar:SetPoint('BOTTOM', self.Health:GetStatusBarTexture(), 'TOP')
+    else
+        bar:SetPoint('LEFT', self.Health:GetStatusBarTexture(), 'RIGHT')
+    end
 
     bar:Hide()
 
@@ -326,6 +327,11 @@ local function styleFunc(settings, self, unit)
     self.MasterLooter:SetHeight(10)
     self.MasterLooter:SetWidth(10)
 
+    self.ResurrectIcon = self.Health:CreateTexture(nil, 'OVERLAY')
+    self.ResurrectIcon:SetPoint('TOP', self, 'CENTER', 0, -3)
+    self.ResurrectIcon:SetHeight(10)
+    self.ResurrectIcon:SetWidth(10)
+
     tinsert(self.__elements, leaf.updatemasterlooter)
     self:RegisterEvent('PARTY_LOOT_METHOD_CHANGED', leaf.updatemasterlooter)
     self:RegisterEvent('PARTY_MEMBERS_CHANGED', leaf.updatemasterlooter)
@@ -372,13 +378,6 @@ local function styleFunc(settings, self, unit)
         --self.RaidDebuffs.DispelPriority = {}
         --self.RaidDebuffs.DispelFilter = {}
         --self.RaidDebuffs.DispelColor = {}
-
-        --[[
-        self.RaidDebuffs.time = self.RaidDebuffs:CreateFontString(nil, 'OVERLAY')
-        self.RaidDebuffs.time:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
-        self.RaidDebuffs.time:SetPoint('CENTER', self.RaidDebuffs, 'CENTER', 0, 0)
-        self.RaidDebuffs.time:SetTextColor(1, .9, 0)
-        ]]
 
         self.RaidDebuffs.count = self.RaidDebuffs:CreateFontString(nil, 'OVERLAY')
         self.RaidDebuffs.count:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
