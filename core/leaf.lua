@@ -90,7 +90,7 @@ end
 leaf.truncate = truncate
 
 
-local _ENV = getfenv(oUF.Tags['level'])
+local _ENV = getfenv(oUF.Tags.Methods['level'])
 rawset(_ENV, 'utf8sub', utf8sub)
 rawset(_ENV, 'truncate', truncate)
 leaf.Hex = rawget(_ENV, 'Hex')

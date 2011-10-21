@@ -181,7 +181,7 @@ local HealCommUpdate = function(self, event, unit)
         if(max ~= 0 and min/max < .8) then
             self.centertext:SetText('|cffe5334c-' .. leaf.truncate(max-min))
         else
-            self.centertext:SetText(oUF.Tags['leaf:raid'](self.unit, self.realUnit))
+            self.centertext:SetText(oUF.Tags.Methods['leaf:raid'](self.unit, self.realUnit))
         end
     else
         --if(bar.Vertical) then
