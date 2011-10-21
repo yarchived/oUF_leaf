@@ -458,3 +458,12 @@ if leaf.test_mod then
     oUF:Spawn('target'):SetPoint('CENTER', UIParent,55,0)
 end
 ]]
+
+
+
+CompactRaidFrameManager:UnregisterAllEvents()
+CompactRaidFrameManager:Hide()
+CompactRaidFrameContainer:UnregisterAllEvents()
+CompactRaidFrameContainer:Hide()
+
+
