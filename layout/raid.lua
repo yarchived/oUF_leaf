@@ -201,23 +201,22 @@ local HealCommUpdate = function(self, event, unit)
     end
 end
 
-local HealCommCreateBar = function(self)
+local HealCommCreateBar = function(self, w, h)
     local bar = CreateFrame('StatusBar', nil, self.Health)
     bar:SetMinMaxValues(0, 1)
     bar:SetValue(1)
     bar:SetStatusBarTexture(self.Health:GetStatusBarTexture():GetTexture())
     bar:SetStatusBarColor(0, 1, 0, .5)
     bar:SetFrameStrata'TOOLTIP'
+    bar:SetSize(w, h)
 
     local ori = self.Health:GetOrientation()
     bar:SetOrientation(ori)
-    bar:SetHeight(self.Health:GetHeight())
-    bar:SetWidth(self.Health:GetWidth())
 
     if(ori == 'VERTICAL') then
-        bar:SetPoint('BOTTOM', self.Health:GetStatusBarTexture(), 'TOP')
+        bar:SetPoint('BOTTOMLEFT', self.Health:GetStatusBarTexture(), 'TOPLEFT')
     else
-        bar:SetPoint('LEFT', self.Health:GetStatusBarTexture(), 'RIGHT')
+        bar:SetPoint('TOPLEFT', self.Health:GetStatusBarTexture(), 'TOPRIGHT')
     end
 
     bar:Hide()
@@ -292,7 +291,7 @@ local function styleFunc(settings, self, unit)
     end
 
     if leaf.HealComm then
-        HealCommCreateBar(self)
+        HealCommCreateBar(self, 40, 35)
     else
         self:Tag(self.centertext, '[leaf:raid]')
     end
