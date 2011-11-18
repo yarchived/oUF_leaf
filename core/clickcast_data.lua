@@ -11,10 +11,8 @@ for n, id in next, SPELLS do
     SPELLS[n] = GetSpellInfo(id)
 end
 
-local class = select(2, UnitClass'player')
-
-local cc = {}
-cc.base = {
+local bindings = {}
+bindings.base = {
     shift = {
         [5] = 'assist',
     },
@@ -23,7 +21,7 @@ cc.base = {
     },
 }
 
-cc.DRUID = {
+bindings.DRUID = {
     alt = {
         [1] = 's|774',      -- 回春
         [2] = 's|8936',     -- 愈合
@@ -45,5 +43,5 @@ cc.DRUID = {
     },
 }
 
-ns.ClickCast:RegisterBindings(cc.base, cc[class])
+ns.ClickCast:RegisterBindings(bindings.base, bindings[select(2, UnitClass'player')])
 
