@@ -409,7 +409,7 @@ for i = 1, 8 do
             self:SetWidth(45)
             self:SetAttribute('type3', 'menu')
             self:SetAttribute('*type2', nil)
-        ]] .. ns.CLICKCAST_FUNC
+        ]] .. (ns.ClickCast and ns.ClickCast.BINDING_STR or '')
         )
     group.SetManyAttributes = leaf.SetManyAttributes
     raid[i] = group

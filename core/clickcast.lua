@@ -1,66 +1,93 @@
 
-local TEST = nil
-if(os) then
-    TEST = 'on'
-end
-
 local _, ns = ...
-local cc_data = ns.clickcast_data
-ns.clickcast_data = nil
+ns.ClickCast = {}
+ns.ClickCast.Bindings = {}
 
-local getAttr = function(entry)
-    local modifier = entry.modifier or ''
-    local button = tostring(entry.button or '')
+local typeTable = {
+	s = 'spell',
+	i = 'item',
+	m = 'macro',
+}
+
+local function get_attr_func(key, action, modkey)
+    modkey = modkey and (modkey..'-') or ''
+    key = tostring(key)
+    local ty, action = string.split('|', action, 2)
+    ty = typeTable[ty] or ty
 
     local attr
-    if(entry.type == 'spell') then
-        attr = 'spell'
-    elseif( entry.type == 'assist' or
-            entry.type == 'focus' or
-            entry.type == 'target') then
+    if(ty == 'spell' or ty == 'item' or ty == 'macro') then
+        if(not action) then return '' end
+    end
 
-        attr = 'unit'
-    elseif(entry.type == 'macro') then
-        if(type(entry.value) == 'string') then
-            attr = 'macrotext'
-        else -- number
-            attr = 'macro'
+    if(ty == 'spell' or ty == 'item') then
+        attr = ty
+    elseif(ty == 'macro') then
+        attr = 'macrotext'
+    elseif(ty == 'assist' or ty == 'focus' or ty == 'target') then
+        if(action) then
+            attr = 'unit'
         end
     end
 
-    return ( "self:SetAttribute('%stype%s', '%s')"):format(modifier, button, entry.type) .. ( (not attr) and '' or '\n'..
-    (       ("self:SetAttribute('%s%s%s', '%s')"):format(modifier, attr, button, tostring(entry.value)))
-    )
+    local block = ('self:SetAttribute("%stype%s", "%s")'):format(modkey, key, ty)
+    if(attr and action) then
+        block = block.. ('\nself:SetAttribute("%s%s%s", [[%s]])'):format(modkey, attr, key, tostring(action))
+    end
+
+    return block
 end
 
-local ATTR_FUNC = ''
-for id, entry in next, cc_data do
-    local func = getAttr(entry)
-    ATTR_FUNC = ATTR_FUNC .. '\n' .. func
-end
-ns.CLICKCAST_FUNC = ATTR_FUNC
+local function make_binding_func()
+    local BINDING_STR = ''
+    for modkey, modaction in next, ns.ClickCast.Bindings do
+        if(type(modaction) == 'table') then
+            for key, action in next, modaction do
+                BINDING_STR = BINDING_STR .. '\n' .. get_attr_func(key, action, modkey)
+            end
+        else
+            BINDING_STR = BINDING_STR .. '\n' .. get_attr_func(modkey, modaction)
+        end
+    end
 
-
-local set_func
-do
-    local func_str = [[function(self)
-        ]] .. ATTR_FUNC .. [[
+    local func, err = loadstring([[return function(self)
+        ]] .. BINDING_STR .. [[
             return self
-        end]]
-
-    local func, err = loadstring('return ' .. func_str)
+        end ]])
     if(func) then
-        set_func = func()
+        ns.ClickCast.BindingFunc = func()
+        ns.ClickCast.BINDING_STR = BINDING_STR
     else
         -- it should work, fix it NOW!
         print('\n================================================================')
-        print(ATTR_FUNC)
+        print(BINDING_STR)
         print('================================================================')
-        print(debugstack(1))
+        print(debugstack(1, 50, 50))
         print('================================================================')
         print(err)
         print('================================================================\n')
     end
+end
+
+function ns.ClickCast:RegisterBindings(...)
+    local bindings = ns.ClickCast.Bindings
+    for i = 1, select('#', ...) do
+        local tbl = select(i, ...)
+        if(tbl) then
+            for key, action in next, tbl do
+                if(type(action) == 'table') then
+                    for actualkey, actualact in next, action do
+                        if(not bindings[key]) then bindings[key] = {} end
+                        bindings[key][actualkey] = actualact
+                    end
+                else
+                    bindings[key] = action
+                end
+            end
+        end
+    end
+
+    make_binding_func()
 end
 
 oUF:RegisterInitCallback(function(self)
@@ -69,7 +96,48 @@ oUF:RegisterInitCallback(function(self)
     if(parent and type(parent.GetAttribute) == 'function' and parent:GetAttribute'oUF-headerType') then
         return
     end
-    
-    return set_func(self)
+
+    return ns.ClickCast.BindingFunc and ns.ClickCast.BindingFunc(self)
 end)
 
+
+
+
+
+
+
+
+
+
+
+
+--local ATTR_FUNC = ''
+--for id, entry in next, cc_data do
+--    local func = getAttr(entry)
+--    ATTR_FUNC = ATTR_FUNC .. '\n' .. func
+--end
+--ns.CLICKCAST_FUNC = ATTR_FUNC
+--
+--
+--local set_func
+--do
+--    local func_str = [[function(self)
+--        ]] .. ATTR_FUNC .. [[
+--            return self
+--        end]]
+--
+--    local func, err = loadstring('return ' .. func_str)
+--    if(func) then
+--        set_func = func()
+--    else
+--        -- it should work, fix it NOW!
+--        print('\n================================================================')
+--        print(ATTR_FUNC)
+--        print('================================================================')
+--        print(debugstack(1))
+--        print('================================================================')
+--        print(err)
+--        print('================================================================\n')
+--    end
+--end
+--

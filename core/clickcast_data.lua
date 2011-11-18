@@ -1,102 +1,49 @@
 
-local TEST = nil
-if(os) then
-    TEST = 'on'
-end
-
 local _, ns = ...
+ns.clickcast_data = {}
+
 
 local SPELLS = {
     ['REBIRTH'] = 20484,
     ['REVIVE'] = 50769,
 }
 for n, id in next, SPELLS do
-    SPELLS[n] = TEST and n or GetSpellInfo(id)
+    SPELLS[n] = GetSpellInfo(id)
 end
 
-local cc_data = {}
-ns.clickcast_data = cc_data
-local class = TEST and 'DRUID' or select(2, UnitClass'player')
-local function add(tbl)
-    table.insert(cc_data, tbl)
-end
+local class = select(2, UnitClass'player')
 
-if(class == 'DRUID') then
-    add({
-        ['type'] = 'spell',
-        ['modifier'] = 'Alt-',
-        ['button'] = 1,
-        ['value'] = 774, --回春术
-    })
-    add({
-        ['type'] = 'spell',
-        ['modifier'] = 'Ctrl-',
-        ['button'] = 2,
-        ['value'] = 5185, --治疗之触
-    })
-    add({
-        ['type'] = 'spell',
-        ['modifier'] = 'Shift-',
-        ['button'] = 1,
-        ['value'] = 2782, --净化腐蚀
-    })
-    add({
-        ['type'] = 'spell',
-        ['modifier'] = 'Ctrl-',
-        ['button'] = 4,
-        ['value'] = 48438, --野性成长
-    })
-    add({
-        ['type'] = 'spell',
-        ['modifier'] = 'Shift-',
-        ['button'] = 4,
-        ['value'] = 50464, --滋補術
-    })
-    add({
-        ['type'] = 'spell',
-        ['modifier'] = 'Alt-',
-        ['button'] = 2,
-        ['value'] = 8936, --'愈合'
-    })
-    add({
-        ['type'] = 'spell',
-        ['modifier'] = 'Shift-',
-        ['button'] = 2,
-        ['value'] = 33763, --'生命绽放'
-    })
-    -- this is for myself
---    add({
---        ['type'] = 'spell',
---        ['modifier'] = 'Alt-',
---        ['button'] = 5,
---        ['value'] = 29166, -- 激活
---    })
-    add({
-        ['type'] = 'spell',
-        ['modifier'] = 'Alt-',
-        ['button'] = 4,
-        ['value'] = 18562, -- 迅癒
-    })
-    add({
-        ['type'] = 'assist',
-        ['modifier'] = 'Shift-',
-        ['button'] = 5,
-    })
-    add({
-        ['type'] = 'focus',
-        ['modifier'] = 'Alt-Ctrl-',
-        ['button'] = 2,
-    })
-    add({
-        ['type'] = 'macro',
-        ['modifier'] = 'Ctrl-',
-        ['button'] = 5,
-        ['value'] = '/cast [target=mouseover,combat]' ..
-        SPELLS.REBIRTH ..
-        ';[target=mouseover]' ..
-        SPELLS.REVIVE,
-    })
-elseif(class == 'PRIEST') then
+local cc = {}
+cc.base = {
+    shift = {
+        [5] = 'assist',
+    },
+    ['ctrl-alt'] = {
+        [2] = 'focus',
+    },
+}
 
-end
+cc.DRUID = {
+    alt = {
+        [1] = 's|774',      -- 回春
+        [2] = 's|8936',     -- 愈合
+        [4] = 's|18562',    -- 迅癒
+        --[5] = 's|29166',    -- 激活
+    },
+
+    ctrl = {
+        [2] = 's|5185',     -- 治疗之触
+        [4] = 's|48438',    -- 野性成长
+        [5] = 'm|/cast [@mouseover,combat]' .. SPELLS.REBIRTH ..
+            '\n/cast [@mouseover]' .. SPELLS.REVIVE,
+    },
+
+    shift = {
+        [1] = 's|2782',     -- 净化腐蚀
+        [2] = 's|33763',    -- 生命绽放
+        [4] = 's|50464',    -- 滋補術
+    },
+}
+
+ns.ClickCast:RegisterBindings(cc.base, cc[class])
 

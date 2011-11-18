@@ -19,8 +19,8 @@ core\leaf.xml
 core\leaf.lua
 core\colors.lua
 core\tags.lua
-core\clickcast_data.lua
 core\clickcast.lua
+core\clickcast_data.lua
 
 layout\layout.lua
 layout\tank.lua
