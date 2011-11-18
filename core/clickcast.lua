@@ -3,15 +3,46 @@ local _, ns = ...
 ns.ClickCast = {}
 ns.ClickCast.Bindings = {}
 
+-- list of supported (tested) attributes
 local typeTable = {
 	s = 'spell',
 	i = 'item',
 	m = 'macro',
+
+    -- these should work withou problem
+    --      focus
+    --      target
+    --      assist
+    --      mainassist
+    --      maintank
 }
 
+local ATTR = function(prefix, attr, suffix, value)
+    return ('\nself:SetAttribute("%s%s%s%s%s", %q)'):format(
+        prefix or '',
+        prefix and (#prefix>0) and '-' or '',
+        attr,
+        suffix and (#suffix>0) and (not tonumber(suffix)) and '-' or '',
+        suffix or '',
+        value
+    )
+end
+
 local function get_attr_func(key, action, modkey)
-    modkey = modkey and (modkey..'-') or ''
-    key = tostring(key)
+    -- [+] map to help
+    -- [-] map to harm
+    local pre
+    if(type(key) == 'string') then
+        pre = key:sub(1, 1)
+        if(pre == '+' or pre == '-') then
+            key = key:sub(2)
+        else
+            pre = nil
+        end
+    else
+        key = tostring(key)
+    end
+
     local ty, action = string.split('|', action, 2)
     ty = typeTable[ty] or ty
 
@@ -30,9 +61,25 @@ local function get_attr_func(key, action, modkey)
         end
     end
 
-    local block = ('self:SetAttribute("%stype%s", "%s")'):format(modkey, key, ty)
+    --local block = ('self:SetAttribute("%stype%s", "%s")'):format(modkey, key, ty)
+
+    local block
+    if(pre) then
+        local origkey = key
+        if(pre == '+') then
+            key = 'help'..key
+            block = ATTR(modkey, 'helpbutton', origkey, key)
+        elseif(pre == '-') then
+            key = 'harm'..key
+            block = ATTR(modkey, 'harmbutton', origkey, key)
+        end
+        block = block .. ATTR(modkey, 'type', key, ty)
+    else
+        block = ATTR(modkey, 'type', key, ty)
+    end
     if(attr and action) then
-        block = block.. ('\nself:SetAttribute("%s%s%s", [[%s]])'):format(modkey, attr, key, tostring(action))
+        block = block.. ATTR(modkey, attr, key, tostring(action))
+        --block = block.. ('\nself:SetAttribute("%s%s%s", %q)'):format(modkey, attr, key, tostring(action))
     end
 
     return block
@@ -49,6 +96,8 @@ local function make_binding_func()
             BINDING_STR = BINDING_STR .. '\n' .. get_attr_func(modkey, modaction)
         end
     end
+
+    --print(BINDING_STR)
 
     local func, err = loadstring([[return function(self)
         ]] .. BINDING_STR .. [[
@@ -100,44 +149,3 @@ oUF:RegisterInitCallback(function(self)
     return ns.ClickCast.BindingFunc and ns.ClickCast.BindingFunc(self)
 end)
 
-
-
-
-
-
-
-
-
-
-
-
---local ATTR_FUNC = ''
---for id, entry in next, cc_data do
---    local func = getAttr(entry)
---    ATTR_FUNC = ATTR_FUNC .. '\n' .. func
---end
---ns.CLICKCAST_FUNC = ATTR_FUNC
---
---
---local set_func
---do
---    local func_str = [[function(self)
---        ]] .. ATTR_FUNC .. [[
---            return self
---        end]]
---
---    local func, err = loadstring('return ' .. func_str)
---    if(func) then
---        set_func = func()
---    else
---        -- it should work, fix it NOW!
---        print('\n================================================================')
---        print(ATTR_FUNC)
---        print('================================================================')
---        print(debugstack(1))
---        print('================================================================')
---        print(err)
---        print('================================================================\n')
---    end
---end
---
