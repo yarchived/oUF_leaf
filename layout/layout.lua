@@ -465,11 +465,8 @@ local function styleFunc(settings, self, unit)
         self.BarFaderAlpha = .4
     end
 
-    if (unit ~= 'player') and (style ~= 'boss') then
-        self.Range = {
-            inRangeAlpha = 1,
-            outsideRangeAlpha = .4,
-        }
+    if (unit ~= 'player') then
+        self.Range = leaf.Range
     end
 
     if unit == 'player' then

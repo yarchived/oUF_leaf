@@ -25,6 +25,6 @@ core\clickcast_data.lua
 layout\layout.lua
 layout\tank.lua
 layout\raid.lua
-layout\hud.lua
+#layout\hud.lua
 #layout\arena.lua
 

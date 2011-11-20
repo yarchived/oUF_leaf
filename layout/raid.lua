@@ -296,10 +296,7 @@ local function styleFunc(settings, self, unit)
         self:Tag(self.centertext, '[leaf:raid]')
     end
 
-    self.Range = {
-        inRangeAlpha = 1,
-        outsideRangeAlpha = .4,
-    }
+    self.Range = leaf.Range
 
     if UnitGroupRolesAssigned and self:GetParent():GetName() == 'oUF_leaf_Group1' then
         self.LFDRole = self.Health:CreateTexture(nil, 'OVERLAY')

@@ -7,9 +7,14 @@ leaf.units = {}
 
 leaf.class = select(2, UnitClass'player')
 
+leaf.Range = {
+    insideAlpha = 1,
+    outsideAlpha = .4,
+}
+
 leaf.backdrop = {
-	bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
-	insets = {top = -1, left = -1, bottom = -1, right = -1},
+    bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
+    insets = {top = -1, left = -1, bottom = -1, right = -1},
 }
 
 local function isLeader(unit)
