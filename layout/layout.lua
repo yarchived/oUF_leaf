@@ -511,30 +511,32 @@ oUF:RegisterStyle('leaf-Boss', setmetatable({
     ['style'] = 'boss',
 }, {__call = styleFunc}))
 
-oUF:SetActiveStyle'leaf-Nomarl'
-local player = oUF:Spawn('player', 'oUF_leaf_Player')
-player:SetPoint('CENTER', UIParent, -300, -180)
-leaf.units.player = player
+if(not leaf.nouf) then
+    oUF:SetActiveStyle'leaf-Nomarl'
+    local player = oUF:Spawn('player', 'oUF_leaf_Player')
+    player:SetPoint('CENTER', UIParent, -300, -180)
+    leaf.units.player = player
 
-leaf.units.target = oUF:Spawn('target', 'oUF_leaf_Target')
-leaf.units.target:SetPoint('CENTER', UIParent, 300, -180)
+    leaf.units.target = oUF:Spawn('target', 'oUF_leaf_Target')
+    leaf.units.target:SetPoint('CENTER', UIParent, 300, -180)
 
-oUF:SetActiveStyle'leaf-Tiny'
-leaf.units.tot = oUF:Spawn('targettarget', 'oUF_leaf_TOT')
-leaf.units.tot:SetPoint('TOPRIGHT', leaf.units.target, 'BOTTOMRIGHT', 0, -5)
+    oUF:SetActiveStyle'leaf-Tiny'
+    leaf.units.tot = oUF:Spawn('targettarget', 'oUF_leaf_ToT')
+    leaf.units.tot:SetPoint('TOPRIGHT', leaf.units.target, 'BOTTOMRIGHT', 0, -5)
 
-leaf.units.focus = oUF:Spawn('focus', 'oUF_leaf_Focus')
-leaf.units.focus:SetPoint('TOPLEFT', leaf.units.player, 'BOTTOMLEFT', 0, -5)
+    leaf.units.focus = oUF:Spawn('focus', 'oUF_leaf_Focus')
+    leaf.units.focus:SetPoint('TOPLEFT', leaf.units.player, 'BOTTOMLEFT', 0, -5)
 
-oUF:SetActiveStyle'leaf-Pet'
-leaf.units.pet = oUF:Spawn('pet', 'oUF_leaf_Pet')
-leaf.units.pet:SetPoint('BOTTOMLEFT', leaf.units.player, 'TOPLEFT', 0, 5)
+    oUF:SetActiveStyle'leaf-Pet'
+    leaf.units.pet = oUF:Spawn('pet', 'oUF_leaf_Pet')
+    leaf.units.pet:SetPoint('BOTTOMLEFT', leaf.units.player, 'TOPLEFT', 0, 5)
 
-leaf.units.player:SetScale(leaf.frameScale)
-leaf.units.target:SetScale(leaf.frameScale)
-leaf.units.tot:SetScale(leaf.frameScale)
-leaf.units.focus:SetScale(leaf.frameScale)
-leaf.units.pet:SetScale(leaf.frameScale)
+    leaf.units.player:SetScale(leaf.frameScale)
+    leaf.units.target:SetScale(leaf.frameScale)
+    leaf.units.tot:SetScale(leaf.frameScale)
+    leaf.units.focus:SetScale(leaf.frameScale)
+    leaf.units.pet:SetScale(leaf.frameScale)
+end
 
 oUF:SetActiveStyle'leaf-Boss'
 for i = 1, MAX_BOSS_FRAMES do
