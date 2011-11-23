@@ -351,7 +351,7 @@ local function styleFunc(settings, self, unit)
 
     self.Threat.Override = OverrideThreatUpdate
 
-    if(IsAddOnLoaded'oUF_RaidDebuffs') then
+    if(select(4, GetAddOnInfo'oUF_RaidDebuffs')) then
         self.RaidDebuffs = CreateFrame('Frame', nil, self)
         self.RaidDebuffs:SetHeight(18)
         self.RaidDebuffs:SetWidth(18)
@@ -371,9 +371,6 @@ local function styleFunc(settings, self, unit)
         self.RaidDebuffs.FilterDispelableDebuff = true
         self.RaidDebuffs.MatchBySpellName = true
         self.RaidDebuffs.Debuffs = ns.raid_debuffs
-        --self.RaidDebuffs.DispelPriority = {}
-        --self.RaidDebuffs.DispelFilter = {}
-        --self.RaidDebuffs.DispelColor = {}
 
         self.RaidDebuffs.count = self.RaidDebuffs:CreateFontString(nil, 'OVERLAY')
         self.RaidDebuffs.count:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
