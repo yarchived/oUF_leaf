@@ -1,3 +1,5 @@
+-- grid-like raid frame
+-- based on freebGrid
 
 local _, ns = ...
 local oUF = ns.oUF or oUF
