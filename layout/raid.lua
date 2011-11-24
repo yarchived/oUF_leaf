@@ -378,6 +378,8 @@ local function styleFunc(settings, self, unit)
         self.RaidDebuffs.count:SetFont(STANDARD_TEXT_FONT, 12, 'OUTLINE')
         self.RaidDebuffs.count:SetPoint('BOTTOMRIGHT', self.RaidDebuffs, 'BOTTOMRIGHT', 2, 0)
         self.RaidDebuffs.count:SetTextColor(1, .9, 0)
+
+        self.RaidDebuffs.SetDebuffTypeColor = self.RaidDebuffs.SetBackdropColor
     end
 end
 
