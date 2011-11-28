@@ -20,8 +20,8 @@ core\leaf.lua
 core\colors.lua
 core\tags.lua
 core\clickcast.lua
-core\clickcast_data.lua
 
+layout\clickcast_data.lua
 layout\layout.lua
 layout\tank.lua
 layout\raid.lua
