@@ -512,13 +512,15 @@ oUF:RegisterStyle('leaf-Boss', setmetatable({
 }, {__call = styleFunc}))
 
 if(not leaf.nouf) then
+
+    local xoffset, yoffset = 300, -130
     oUF:SetActiveStyle'leaf-Nomarl'
     local player = oUF:Spawn('player', 'oUF_leaf_Player')
-    player:SetPoint('CENTER', UIParent, -300, -180)
+    player:SetPoint('CENTER', UIParent, -xoffset, yoffset)
     leaf.units.player = player
 
     leaf.units.target = oUF:Spawn('target', 'oUF_leaf_Target')
-    leaf.units.target:SetPoint('CENTER', UIParent, 300, -180)
+    leaf.units.target:SetPoint('CENTER', UIParent, xoffset, yoffset)
 
     oUF:SetActiveStyle'leaf-Tiny'
     leaf.units.tot = oUF:Spawn('targettarget', 'oUF_leaf_ToT')
