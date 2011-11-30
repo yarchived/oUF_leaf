@@ -87,13 +87,13 @@ end
 
 local function make_binding_func()
     local BINDING_STR = ''
-    for modkey, modaction in next, ns.ClickCast.Bindings do
-        if(type(modaction) == 'table') then
-            for key, action in next, modaction do
-                BINDING_STR = BINDING_STR .. '\n' .. get_attr_func(key, action, modkey)
+    for key, action in next, ns.ClickCast.Bindings do
+        if(type(action) == 'table') then
+            for modkey, modaction in next, action do
+                BINDING_STR = BINDING_STR .. '\n' .. get_attr_func(modkey, modaction, key)
             end
         else
-            BINDING_STR = BINDING_STR .. '\n' .. get_attr_func(modkey, modaction)
+            BINDING_STR = BINDING_STR .. '\n' .. get_attr_func(key, action)
         end
     end
 
@@ -125,9 +125,9 @@ function ns.ClickCast:RegisterBindings(...)
         if(tbl) then
             for key, action in next, tbl do
                 if(type(action) == 'table') then
-                    for actualkey, actualact in next, action do
-                        if(not bindings[key]) then bindings[key] = {} end
-                        bindings[key][actualkey] = actualact
+                    if(not bindings[key]) then bindings[key] = {} end
+                    for modkey, modaction in next, action do
+                        bindings[key][modkey] = modaction
                     end
                 else
                     bindings[key] = action
