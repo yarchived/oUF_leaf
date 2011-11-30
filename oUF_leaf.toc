@@ -22,6 +22,7 @@ core\tags.lua
 core\clickcast.lua
 
 layout\clickcast_data.lua
+layout\raid_debuffs.lua
 layout\layout.lua
 layout\tank.lua
 layout\raid.lua
