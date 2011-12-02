@@ -456,11 +456,17 @@ if leaf.test_mod then
 end
 ]]
 
+local f = CreateFrame'Frame'
+f:RegisterEvent'ADDON_LOADED'
+f:SetScript('OnEvent', function(self, event, addon)
+    if addon == 'Blizzard_CompactRaidFrames' then
+        CompactRaidFrameManager:UnregisterAllEvents()
+        CompactRaidFrameManager:Hide()
+        CompactRaidFrameContainer:UnregisterAllEvents()
+        CompactRaidFrameContainer:Hide()
 
-
-CompactRaidFrameManager:UnregisterAllEvents()
-CompactRaidFrameManager:Hide()
-CompactRaidFrameContainer:UnregisterAllEvents()
-CompactRaidFrameContainer:Hide()
-
+        self:UnregisterAllEvents()
+        self:SetScript('OnEvent', nil)
+    end
+end)
 
