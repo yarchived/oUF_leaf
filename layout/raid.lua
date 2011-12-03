@@ -300,12 +300,10 @@ local function styleFunc(settings, self, unit)
 
     self.Range = leaf.Range
 
-    if UnitGroupRolesAssigned and self:GetParent():GetName() == 'oUF_leaf_Group1' then
-        self.LFDRole = self.Health:CreateTexture(nil, 'OVERLAY')
-        self.LFDRole:SetPoint('TOPLEFT', self, 0, 0)
-        self.LFDRole:SetHeight(12)
-        self.LFDRole:SetWidth(12)
-    end
+    self.LFDRole = self.Health:CreateTexture(nil, 'OVERLAY')
+    self.LFDRole:SetPoint('TOPLEFT', self, 0, 0)
+    self.LFDRole:SetHeight(12)
+    self.LFDRole:SetWidth(12)
 
     self.RaidIcon = self.Health:CreateTexture(nil, 'OVERLAY')
     self.RaidIcon:SetPoint('TOP', self, 0, 4)
