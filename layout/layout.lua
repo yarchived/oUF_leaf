@@ -354,10 +354,13 @@ local function styleFunc(settings, self, unit)
         self.CPoints[4]:SetVertexColor(0.65, 0.63, 0.35)
         self.CPoints[5]:SetVertexColor(0.33, 0.59, 0.33)
 
-        -- UNIT_NAME_UPDATE
-        self:RegisterEvent('PLAYER_TARGET_CHANGED', function(self, event, unit)
-            self.CPoints:ForceUpdate()
-        end)
+        --[==[
+        self.CPoints.PostUpdate = function() end
+
+        local bg = [[Interface\ComboFrame\ComboFrameBackground]]
+
+        ]==]
+
     elseif unit == 'player' then
         if(leaf.AuraWatch) then
             local iconSize = leaf.AuraWatchIconSize
