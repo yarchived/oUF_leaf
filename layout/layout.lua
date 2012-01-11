@@ -514,55 +514,32 @@ oUF:RegisterStyle('leaf-Boss', setmetatable({
     ['style'] = 'boss',
 }, {__call = styleFunc}))
 
-if(not leaf.nouf) then
+if(leaf.nouf) then return end
 
-    local xoffset, yoffset = 300, -130
-    oUF:SetActiveStyle'leaf-Nomarl'
-    local player = oUF:Spawn('player', 'oUF_leaf_Player')
-    player:SetPoint('CENTER', UIParent, -xoffset, yoffset)
-    leaf.units.player = player
+local xoffset, yoffset = 300, -130
+oUF:SetActiveStyle'leaf-Nomarl'
+local player = oUF:Spawn('player', 'oUF_leaf_Player')
+player:SetPoint('CENTER', UIParent, -xoffset, yoffset)
+leaf.units.player = player
 
-    leaf.units.target = oUF:Spawn('target', 'oUF_leaf_Target')
-    leaf.units.target:SetPoint('CENTER', UIParent, xoffset, yoffset)
+leaf.units.target = oUF:Spawn('target', 'oUF_leaf_Target')
+leaf.units.target:SetPoint('CENTER', UIParent, xoffset, yoffset)
 
-    oUF:SetActiveStyle'leaf-Tiny'
-    leaf.units.tot = oUF:Spawn('targettarget', 'oUF_leaf_ToT')
-    leaf.units.tot:SetPoint('TOPRIGHT', leaf.units.target, 'BOTTOMRIGHT', 0, -5)
+oUF:SetActiveStyle'leaf-Tiny'
+leaf.units.tot = oUF:Spawn('targettarget', 'oUF_leaf_ToT')
+leaf.units.tot:SetPoint('TOPRIGHT', leaf.units.target, 'BOTTOMRIGHT', 0, -5)
 
-    leaf.units.focus = oUF:Spawn('focus', 'oUF_leaf_Focus')
-    leaf.units.focus:SetPoint('TOPLEFT', leaf.units.player, 'BOTTOMLEFT', 0, -5)
+leaf.units.focus = oUF:Spawn('focus', 'oUF_leaf_Focus')
+leaf.units.focus:SetPoint('TOPLEFT', leaf.units.player, 'BOTTOMLEFT', 0, -5)
 
-    oUF:SetActiveStyle'leaf-Pet'
-    leaf.units.pet = oUF:Spawn('pet', 'oUF_leaf_Pet')
-    leaf.units.pet:SetPoint('BOTTOMLEFT', leaf.units.player, 'TOPLEFT', 0, 5)
+oUF:SetActiveStyle'leaf-Pet'
+leaf.units.pet = oUF:Spawn('pet', 'oUF_leaf_Pet')
+leaf.units.pet:SetPoint('BOTTOMLEFT', leaf.units.player, 'TOPLEFT', 0, 5)
 
-    leaf.units.player:SetScale(leaf.frameScale)
-    leaf.units.target:SetScale(leaf.frameScale)
-    leaf.units.tot:SetScale(leaf.frameScale)
-    leaf.units.focus:SetScale(leaf.frameScale)
-    leaf.units.pet:SetScale(leaf.frameScale)
-end
+leaf.units.player:SetScale(leaf.frameScale)
+leaf.units.target:SetScale(leaf.frameScale)
+leaf.units.tot:SetScale(leaf.frameScale)
+leaf.units.focus:SetScale(leaf.frameScale)
+leaf.units.pet:SetScale(leaf.frameScale)
 
-oUF:SetActiveStyle'leaf-Boss'
-for i = 1, MAX_BOSS_FRAMES do
-
-    local unit = 'boss' .. i
-    local unittar = unit .. 'target'
-    local f = oUF:Spawn(unit, 'oUF_leaf_Boss' .. i)
-    local t = oUF:Spawn(unittar, 'oUF_leaf_BossTarget' .. i)
-
-    f:SetScale(leaf.frameScale)
-    t:SetScale(leaf.frameScale)
-
-    leaf.units[unit] = f
-    leaf.units[unittar] = f
-
-    if i == 1 then
-        f:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 160, -25)
-    else
-        f:SetPoint('TOPLEFT', leaf.units['boss'..(i-1)], 'BOTTOMLEFT', 0, -5)
-    end
-
-    t:SetPoint('TOPLEFT', f, 'TOPRIGHT', 5, 0)
-end
 

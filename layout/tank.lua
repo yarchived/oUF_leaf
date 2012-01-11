@@ -3,6 +3,29 @@ local _, ns = ...
 local oUF = ns.oUF or oUF
 local leaf = ns.leaf
 
+oUF:SetActiveStyle'leaf-Boss'
+for i = 1, MAX_BOSS_FRAMES do
+    local unit = 'boss' .. i
+    local unittar = unit .. 'target'
+    local f = oUF:Spawn(unit, 'oUF_leaf_Boss' .. i)
+    local t = oUF:Spawn(unittar, 'oUF_leaf_BossTarget' .. i)
+
+    f:SetScale(leaf.frameScale)
+    t:SetScale(leaf.frameScale)
+
+    leaf.units[unit] = f
+    leaf.units[unittar] = f
+
+    if i == 1 then
+        f:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 450, -25)
+    else
+        f:SetPoint('TOPLEFT', leaf.units['boss'..(i-1)], 'BOTTOMLEFT', 0, -5)
+    end
+
+    t:SetPoint('TOPLEFT', f, 'TOPRIGHT', 5, 0)
+end
+
+
 oUF:SetActiveStyle'leaf-Tank'
 
 local mt_max = 5
