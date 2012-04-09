@@ -21,6 +21,8 @@ core\colors.lua
 core\tags.lua
 core\clickcast.lua
 
+config.lua
+
 layout\clickcast_data.lua
 layout\raid_debuffs.lua
 layout\layout.lua
