@@ -17,16 +17,10 @@ leaf.backdrop = {
     insets = {top = -1, left = -1, bottom = -1, right = -1},
 }
 
-local function isLeader(unit)
-	return (UnitInParty(unit) or UnitInRaid(unit)) and UnitIsPartyLeader(unit)
-end
-local function isAssistant(unit)
-	return UnitInRaid(unit) and UnitIsRaidOfficer(unit) and not UnitIsPartyLeader(unit)
-end
-
 function leaf.updatemasterlooter(self)
+    local unit = self.unit
 	self.MasterLooter:ClearAllPoints()
-	if isLeader(self.unit) or isAssistant(self.unit) then
+    if(UnitIsGroupLeader(unit) or UnitIsGroupAssistant(unit)) then
 		self.MasterLooter:SetPoint('LEFT', self.Leader, 'RIGHT')
 	else
 		self.MasterLooter:SetPoint('TOPLEFT', self.Leader)

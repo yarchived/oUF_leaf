@@ -335,24 +335,28 @@ local function styleFunc(settings, self, unit)
             self.Auras.noTooltip = true
         end
 
-        self.CPoints = {}
+        local cpoints = {}
         for i = 1, 5 do
-            self.CPoints[i] = self.Power:CreateTexture(nil, 'OVERLAY')
-            self.CPoints[i]:SetHeight(8)
-            self.CPoints[i]:SetWidth(8)
-            self.CPoints[i]:SetTexture(bubbleTex)
+            cpoints[i] = self.Power:CreateTexture(nil, 'OVERLAY')
+            cpoints[i]:SetHeight(8)
+            cpoints[i]:SetWidth(8)
+            cpoints[i]:SetTexture(bubbleTex)
             if i == 1 then
-                self.CPoints[i]:SetPoint('BOTTOMLEFT', 1, 0)
+                cpoints[i]:SetPoint('BOTTOMLEFT', 1, 0)
             else
-                self.CPoints[i]:SetPoint('LEFT', self.CPoints[i-1], 'RIGHT', 1)
+                cpoints[i]:SetPoint('LEFT', cpoints[i-1], 'RIGHT', 1)
             end
         end
 
-        self.CPoints[1]:SetVertexColor(0.69, 0.31, 0.31)
-        self.CPoints[2]:SetVertexColor(0.69, 0.31, 0.31)
-        self.CPoints[3]:SetVertexColor(0.65, 0.63, 0.35)
-        self.CPoints[4]:SetVertexColor(0.65, 0.63, 0.35)
-        self.CPoints[5]:SetVertexColor(0.33, 0.59, 0.33)
+        cpoints[1]:SetVertexColor(0.69, 0.31, 0.31)
+        cpoints[2]:SetVertexColor(0.69, 0.31, 0.31)
+        cpoints[3]:SetVertexColor(0.65, 0.63, 0.35)
+        cpoints[4]:SetVertexColor(0.65, 0.63, 0.35)
+        cpoints[5]:SetVertexColor(0.33, 0.59, 0.33)
+
+        cpoints.UpdateTexture = function() end
+        self.ClassIcons = cpoints
+
 
         --[==[
         self.CPoints.PostUpdate = function() end
@@ -516,30 +520,31 @@ oUF:RegisterStyle('leaf-Boss', setmetatable({
 
 if(leaf.nouf) then return end
 
+local units = leaf.units
+
 local xoffset, yoffset = 300, -130
 oUF:SetActiveStyle'leaf-Nomarl'
 local player = oUF:Spawn('player', 'oUF_leaf_Player')
 player:SetPoint('CENTER', UIParent, -xoffset, yoffset)
-leaf.units.player = player
+units.player = player
 
-leaf.units.target = oUF:Spawn('target', 'oUF_leaf_Target')
-leaf.units.target:SetPoint('CENTER', UIParent, xoffset, yoffset)
+units.target = oUF:Spawn('target', 'oUF_leaf_Target')
+units.target:SetPoint('CENTER', UIParent, xoffset, yoffset)
 
 oUF:SetActiveStyle'leaf-Tiny'
-leaf.units.tot = oUF:Spawn('targettarget', 'oUF_leaf_ToT')
-leaf.units.tot:SetPoint('TOPRIGHT', leaf.units.target, 'BOTTOMRIGHT', 0, -5)
+units.tot = oUF:Spawn('targettarget', 'oUF_leaf_ToT')
+units.tot:SetPoint('TOPRIGHT', units.target, 'BOTTOMRIGHT', 0, -5)
 
-leaf.units.focus = oUF:Spawn('focus', 'oUF_leaf_Focus')
-leaf.units.focus:SetPoint('TOPLEFT', leaf.units.player, 'BOTTOMLEFT', 0, -5)
+units.focus = oUF:Spawn('focus', 'oUF_leaf_Focus')
+units.focus:SetPoint('TOPLEFT', units.player, 'BOTTOMLEFT', 0, -5)
 
 oUF:SetActiveStyle'leaf-Pet'
-leaf.units.pet = oUF:Spawn('pet', 'oUF_leaf_Pet')
-leaf.units.pet:SetPoint('BOTTOMLEFT', leaf.units.player, 'TOPLEFT', 0, 5)
+units.pet = oUF:Spawn('pet', 'oUF_leaf_Pet')
+units.pet:SetPoint('BOTTOMLEFT', units.player, 'TOPLEFT', 0, 5)
 
-leaf.units.player:SetScale(leaf.frameScale)
-leaf.units.target:SetScale(leaf.frameScale)
-leaf.units.tot:SetScale(leaf.frameScale)
-leaf.units.focus:SetScale(leaf.frameScale)
-leaf.units.pet:SetScale(leaf.frameScale)
-
+units.player:SetScale(leaf.frameScale)
+units.target:SetScale(leaf.frameScale)
+units.tot:SetScale(leaf.frameScale)
+units.focus:SetScale(leaf.frameScale)
+units.pet:SetScale(leaf.frameScale)
 
