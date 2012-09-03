@@ -8,6 +8,7 @@ local utf8sub = leaf.utf8sub
 local truncate = leaf.truncate
 local colors = leaf.colors
 
+
 oUF.Tags.Methods['leaf:difficulty']  = function(u) local l = UnitLevel(u); return Hex(GetQuestDifficultyColor((l > 0) and l or 99)) end
 
 oUF.Tags.Methods['leaf:curhp'] = function(u) return truncate(UnitHealth(u)) end
@@ -52,7 +53,7 @@ end
 oUF.Tags.Events['leaf:perpp'] = 'UNIT_POWER UNIT_MAXPOWER'
 
 oUF.Tags.Methods['leaf:smartpp'] = function(u)
-    if select(2,UnitPowerType(u)) == 'MANA' then
+    if (UnitPowerType(u) == SPELL_POWER_MANA) then
         oUF.Tags.Methods['leaf:perpp'](u)
     else
         return UnitPower(u)
@@ -71,7 +72,10 @@ local color_power = {}
 for k, v in pairs(colors.power) do
     color_power[k] = Hex(v)
 end
-oUF.Tags.Methods['leaf:colorpower'] = function(u) local n,s = UnitPowerType(u) return color_power[s] end
+oUF.Tags.Methods['leaf:colorpower'] = function(u)
+    -- local n,s = UnitPowerType(u) return color_power[s]
+    return color_power[UnitPowerType(u)]
+end
 
 oUF.Tags.Methods['leaf:smartlevel'] = function(u)
     local c = UnitClassification(u)
@@ -144,7 +148,8 @@ do
 end
 
 oUF.Tags.Methods['leaf:druidpower'] = function(u)
-    local mana = UnitPowerType(u) == 0
+    local mana = UnitPowerType(u) == SPELL_POWER_MANA
+    local powerType = mana and SPELL_POWER_ENERGY or SPELL_POWER_MANA
     local min, max = UnitPower(u, mana and 3 or 0), UnitPowerMax(u, mana and 3 or 0)
     if min~=max then
         local r,g,b = unpack(colors.power[mana and 'ENERGY' or 'MANA'])
