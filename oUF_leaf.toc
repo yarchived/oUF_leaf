@@ -1,14 +1,9 @@
-## Interface: 40000
+## Interface: 50001
 ## Title: oUF |cffff8800leaf|r
 ## OptionalDeps: !ClassColors, oUF_RaidDebuffs
 ## Dependencies: oUF
 
 ## X-Website: https://github.com/yaroot/oUF_leaf
-
-## X-oUF: OUFLEAFCORE
-## X-SlashCmdList: /oufleaf, /oleaf
-## X-SavedVariables: OUFLEAF_FRAMEDB
-## SavedVariables: OUFLEAF_FRAMEDB
 
 libs\LibStub.lua
 libs\CallbackHandler-1.0.lua

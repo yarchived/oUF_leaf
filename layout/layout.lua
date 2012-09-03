@@ -357,7 +357,6 @@ local function styleFunc(settings, self, unit)
         cpoints.UpdateTexture = function() end
         self.ClassIcons = cpoints
 
-
         --[==[
         self.CPoints.PostUpdate = function() end
 

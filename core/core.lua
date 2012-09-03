@@ -11,8 +11,6 @@ leaf.frameScale = 1.1 -- global scale
 leaf.HealComm = true
 leaf.test_mod = false
 
-
-
 local _NAME, _NS = ...
 local oUF = _NS.oUF or oUF
 
@@ -25,5 +23,4 @@ for _, a in next, {'DarkDurance_UnitFrame'} do
         break
     end
 end
-
 
