@@ -414,22 +414,51 @@ local function styleFunc(settings, self, unit)
             --druidPower:SetPoint('BOTTOM', self.Power)
             --self:Tag(druidPower, '[leaf:druidpower]')
 
-            self.DruidMana = CreateFrame('StatusBar', nil, self)
-            self.DruidMana:SetStatusBarTexture(texture)
-            self.DruidMana:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', 0, 0)
-            self.DruidMana:SetPoint('RIGHT', self)
-            self.DruidMana:SetHeight(2)
+            local manaBar = CreateFrame('StatusBar', nil, self)
+            manaBar:SetStatusBarTexture(texture)
+            manaBar:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', 0, 6)
+            manaBar:SetPoint('RIGHT', self)
+            manaBar:SetHeight(4)
 
-            --self.DruidMana.colorClass = true
-            self.DruidMana.frequentUpdates = true
+            --manaBar.colorClass = true
+            manaBar.frequentUpdates = true
 
-            self.DruidMana.bg = self.DruidMana:CreateTexture(nil, 'BORDER')
-            self.DruidMana.bg:SetAllPoints(self.DruidMana)
-            self.DruidMana.bg:SetTexture(texture)
+            manaBar.bg = manaBar:CreateTexture(nil, 'BORDER')
+            manaBar.bg:SetAllPoints(manaBar)
+            manaBar.bg:SetTexture(texture)
 
             local r, g, b = unpack(self.colors.class[class])
-            self.DruidMana:SetStatusBarColor(r, g, b)
-            self.DruidMana.bg:SetVertexColor(r*.3, g*.3, b*.3)
+            manaBar:SetStatusBarColor(r, g, b)
+            manaBar.bg:SetVertexColor(r*.3, g*.3, b*.3)
+            self.DruidMana = manaBar
+
+
+            local lunarBar = CreateFrame('StatusBar', nil, self)
+            local solarBar = CreateFrame('StatusBar', nil, self)
+            lunarBar.color = { 0, .6, .8 }
+            solarBar.color = { 1, .8, 0 }
+
+            for _, bar in next, { lunarBar, solarBar } do
+                bar:SetStatusBarTexture(texture)
+                bar:SetHeight(4)
+                bar:SetWidth(settings['initial-width'] / 2)
+
+                bar.bg = bar:CreateTexture(nil, 'BORDER')
+                bar.bg:SetAllPoints(bar)
+                bar.bg:SetTexture(texture)
+
+                local r, g, b = unpack(bar.color)
+                bar:SetStatusBarColor(r, g, b)
+                bar.bg:SetVertexColor(r*.3, g*.3, b*.3)
+            end
+
+            lunarBar:SetPoint('TOPLEFT', self.DruidMana)
+            solarBar:SetPoint('LEFT', lunarBar, 'RIGHT')
+
+            self.EclipseBar = {
+                LunarBar = lunarBar,
+                SolarBar = solarBar,
+            }
         end
     end
 
