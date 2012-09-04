@@ -165,27 +165,23 @@ oUF.Tags.Events['leaf:druidpower'] = 'UNIT_POWER UPDATE_SHAPESHIFT_FORM'
 
 
 do
-    local get_name = function(unit)
+    local name_cache = {}
+
+    local get_name_and_cache = function(unit)
         local name = UnitName(unit)
         local color = oUF.Tags.Methods['leaf:raidcolor'](unit) or ''
         local eng = strlen(name) == strlenutf8(name)
-        return color .. utf8sub(name, eng and 5 or 3)
+        local rn = color .. utf8sub(name, eng and 5 or 3)
+        name_cache[name] = rn
+        return rn
     end
 
-    local cache = {}
-
     oUF.Tags.Methods['leaf:raid'] = function(unit, realUnit)
-        local u = realUnit or unit
-        local name = UnitName(u)
-        local rname = cache[name]
-
-        if(rname) then
-            return rname
-        else
-            rname = get_name(u)
-            cache[name] = rname
-            return rname
+        if(realUnit) then
+            unit = realUnit
         end
+        local name = UnitName(unit)
+        return name_cache[name] or get_name_and_cache(unit)
     end
     oUF.Tags.Events['leaf:raid'] = 'UNIT_NAME_UPDATE'
 end
