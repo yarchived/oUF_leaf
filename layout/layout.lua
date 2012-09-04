@@ -334,29 +334,6 @@ local function styleFunc(settings, self, unit)
 
             self.Auras.noTooltip = true
         end
-
-        local cpoints = {}
-        for i = 1, 5 do
-            cpoints[i] = self.Power:CreateTexture(nil, 'OVERLAY')
-            cpoints[i]:SetHeight(8)
-            cpoints[i]:SetWidth(8)
-            cpoints[i]:SetTexture(bubbleTex)
-            if i == 1 then
-                cpoints[i]:SetPoint('BOTTOMLEFT', 1, 0)
-            else
-                cpoints[i]:SetPoint('LEFT', cpoints[i-1], 'RIGHT', 1)
-            end
-        end
-
-        cpoints[1]:SetVertexColor(0.69, 0.31, 0.31)
-        cpoints[2]:SetVertexColor(0.69, 0.31, 0.31)
-        cpoints[3]:SetVertexColor(0.65, 0.63, 0.35)
-        cpoints[4]:SetVertexColor(0.65, 0.63, 0.35)
-        cpoints[5]:SetVertexColor(0.33, 0.59, 0.33)
-
-        cpoints.UpdateTexture = function() end
-        self.ClassIcons = cpoints
-
         --[==[
         self.CPoints.PostUpdate = function() end
 
@@ -454,6 +431,31 @@ local function styleFunc(settings, self, unit)
             self.DruidMana:SetStatusBarColor(r, g, b)
             self.DruidMana.bg:SetVertexColor(r*.3, g*.3, b*.3)
         end
+    end
+
+    if( ( class == 'MONK' or class == 'PALADIN' or class == 'PRIEST' or class == 'WARLOCK' )
+        and unit == 'player' ) or ( unit == 'target' ) then
+        local cpoints = {}
+        for i = 1, 5 do
+            cpoints[i] = self.Power:CreateTexture(nil, 'OVERLAY')
+            cpoints[i]:SetHeight(8)
+            cpoints[i]:SetWidth(8)
+            cpoints[i]:SetTexture(bubbleTex)
+            if i == 1 then
+                cpoints[i]:SetPoint('BOTTOMLEFT', unit == 'player' and 5 or 1, 0)
+            else
+                cpoints[i]:SetPoint('LEFT', cpoints[i-1], 'RIGHT', 1)
+            end
+        end
+
+        cpoints[1]:SetVertexColor(0.69, 0.31, 0.31)
+        cpoints[2]:SetVertexColor(0.69, 0.31, 0.31)
+        cpoints[3]:SetVertexColor(0.65, 0.63, 0.35)
+        cpoints[4]:SetVertexColor(0.65, 0.63, 0.35)
+        cpoints[5]:SetVertexColor(0.33, 0.59, 0.33)
+
+        cpoints.UpdateTexture = function() end
+        self.ClassIcons = cpoints
     end
 
     self.RaidIcon = self.Health:CreateTexture(nil, 'OVERLAY')
