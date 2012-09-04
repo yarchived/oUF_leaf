@@ -164,7 +164,7 @@ do
     local get_name = function(unit)
         local name = UnitName(unit)
         local color = oUF.Tags.Methods['leaf:raidcolor'](unit) or ''
-        local eng = strbyte(name, 1) > 224
+        local eng = strlen(name) == strlenutf8(name)
         return color .. utf8sub(name, eng and 5 or 3)
     end
 
