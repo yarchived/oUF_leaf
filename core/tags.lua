@@ -68,10 +68,14 @@ oUF.Tags.Methods['leaf:name'] = function(u, r)
 end
 oUF.Tags.Events['leaf:name'] = 'UNIT_NAME_UPDATE'
 
-local color_power = {}
-for k, v in pairs(colors.power) do
-    color_power[k] = Hex(v)
-end
+local color_power = setmetatable({}, { __index = function(t, s)
+    local c = colors.power[s]
+    if(c) then
+        local color = Hex(c)
+        t[s] = color
+        return color
+    end
+end})
 oUF.Tags.Methods['leaf:colorpower'] = function(u)
     -- local n,s = UnitPowerType(u) return color_power[s]
     return color_power[UnitPowerType(u)]
