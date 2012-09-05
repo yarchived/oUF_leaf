@@ -351,7 +351,8 @@ local function styleFunc(settings, self, unit)
 
     self.Threat.Override = OverrideThreatUpdate
 
-    if(select(4, GetAddOnInfo'oUF_RaidDebuffs')) then
+    local hasRaidDebuffs = select(4, GetAddOnInfo'oUF_RaidDebuffs')
+    if(hasRaidDebuffs) then
         self.RaidDebuffs = CreateFrame('Frame', nil, self)
         self.RaidDebuffs:SetHeight(18)
         self.RaidDebuffs:SetWidth(18)
@@ -392,26 +393,28 @@ local raid = {}
 leaf.units.raid = raid
 
 for i = 1, 8 do
+    local clickCastFunc = ns.ClickCast and ns.ClickCast.BINDING_STR or ''
+    local isFirstGroup = i == 1
     local group = oUF:SpawnHeader(
         'oUF_leaf_Group'..i, nil, nil,
         'groupFilter', tostring(i),
         'showRaid', true,
         'yOffset', -5,
-        'showParty', i == 1,
-        'showPlayer', i == 1,
-        'showSolo', i == 1,
+        'showParty', isFirstGroup,
+        'showPlayer', isFirstGroup,
+        'showSolo', isFirstGroup,
         'oUF-initialConfigFunction', [[
             self:SetHeight(35)
             self:SetWidth(45)
             self:SetAttribute('type3', 'menu')
             self:SetAttribute('*type2', nil)
-        ]] .. (ns.ClickCast and ns.ClickCast.BINDING_STR or '')
-        )
+        ]] .. clickCastFunc)
+
     group.SetManyAttributes = leaf.SetManyAttributes
     raid[i] = group
     group:SetScale(leaf.frameScale)
 
-    if(i == 1) then
+    if(isFirstGroup) then
         group:SetPoint('BOTTOMRIGHT', UIParent, -10, 10)
     else
         group:SetPoint('BOTTOMRIGHT', raid[i-1], 'BOTTOMLEFT', -5, 0)
@@ -421,31 +424,43 @@ end
 -- just make it damn easy, crappy API
 local f = CreateFrame'Frame'
 f:RegisterEvent'PLAYER_ENTERING_WORLD'
-f:SetScript('OnEvent', function(self, event, ...)
+f:SetScript('OnEvent', function(self, event, ...) self[event](self, event, ...) end)
+
+function f:PLAYER_ENTERING_WORLD()
     if InCombatLockdown() then
         return self:RegisterEvent'PLAYER_REGEN_ENABLED'
-    elseif self:IsEventRegistered'PLAYER_REGEN_ENABLED' then
-        self:UnregisterEvent'PLAYER_REGEN_ENABLED'
     end
 
-    local mod
+    local mode
     local inInstance, instanceType = IsInInstance()
 
     if instanceType == 'raid' then
-        mod = 25
+        mode = 25
     else
-        mod = 40
+        mode = 40
     end
+
+    mode = mod / 5
 
     for i = 1, 8 do
         local header = raid[i]
-        if i <= mod/5 then
-            header:Show()
+        local shown = header:IsShown()
+        if i <= mode then
+            if(not shown) then
+                header:Show()
+            end
         else
-            header:Hide()
+            if(shown) then
+                header:Hide()
+            end
         end
     end
-end)
+end
+
+function f:PLAYER_REGEN_ENABLED(event)
+    self:UnregisterEvent(event)
+    return self:PLAYER_ENTERING_WORLD()
+end
 
 --[[
 if leaf.test_mod then
