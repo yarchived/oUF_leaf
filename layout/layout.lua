@@ -359,11 +359,7 @@ local function styleFunc(settings, self, unit)
 
             self.Auras.noTooltip = true
 
-            self.Auras.CustomFilter = function(icons, unit, icon, name, rank, texture, count, dtype, duration, timeLeft, caster, isStealable, shouldConsolidate, spellID, canApplyAura, isBossDebuff)
-                if(caster == 'player' and duration <= 90 and duration ~= 0) then
-                    return true
-                end
-            end
+            self.Auras.CustomFilter = leaf.PlayerAuraCustomFilter
         end
 
         self.Leader = self.Health:CreateTexture(nil, 'OVERLAY')

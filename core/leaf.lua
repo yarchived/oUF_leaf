@@ -12,6 +12,16 @@ leaf.Range = {
     outsideAlpha = .4,
 }
 
+local filterAuras = {
+    [2479] = true,
+}
+
+leaf.PlayerAuraCustomFilter = function(icons, unit, icon, name, rank, texture, count, dtype, duration, timeLeft, caster, isStealable, shouldConsolidate, spellID, canApplyAura, isBossDebuff)
+    if(caster == 'player' and duration <= 90 and duration ~= 0) then
+        return not filterAuras[spellID]
+    end
+end
+
 leaf.backdrop = {
     bgFile = [=[Interface\ChatFrame\ChatFrameBackground]=],
     insets = {top = -1, left = -1, bottom = -1, right = -1},
