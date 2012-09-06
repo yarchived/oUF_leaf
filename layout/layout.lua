@@ -412,7 +412,7 @@ local function styleFunc(settings, self, unit)
 
             local manaBar = CreateFrame('StatusBar', nil, self)
             manaBar:SetStatusBarTexture(texture)
-            manaBar:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', 0, 6)
+            manaBar:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', 0, 0)
             manaBar:SetPoint('RIGHT', self)
             manaBar:SetHeight(4)
 
@@ -432,24 +432,19 @@ local function styleFunc(settings, self, unit)
             local lunarBar = CreateFrame('StatusBar', nil, self)
             local solarBar = CreateFrame('StatusBar', nil, self)
             lunarBar.color = { 0, .6, .8 }
-            solarBar.color = { 1, .8, 0 }
+            solarBar.color = { 1, .56, 0 }
 
             for _, bar in next, { lunarBar, solarBar } do
                 bar:SetStatusBarTexture(texture)
                 bar:SetHeight(4)
-                bar:SetWidth(settings['initial-width'] / 2)
-
-                bar.bg = bar:CreateTexture(nil, 'BORDER')
-                bar.bg:SetAllPoints(bar)
-                bar.bg:SetTexture(texture)
+                bar:SetWidth(settings['initial-width'])
 
                 local r, g, b = unpack(bar.color)
                 bar:SetStatusBarColor(r, g, b)
-                bar.bg:SetVertexColor(r*.3, g*.3, b*.3)
             end
 
             lunarBar:SetPoint('TOPLEFT', self.DruidMana)
-            solarBar:SetPoint('LEFT', lunarBar, 'RIGHT')
+            solarBar:SetPoint('LEFT', lunarBar:GetStatusBarTexture(), 'RIGHT')
 
             self.EclipseBar = {
                 LunarBar = lunarBar,
