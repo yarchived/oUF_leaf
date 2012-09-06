@@ -440,7 +440,7 @@ function f:PLAYER_ENTERING_WORLD()
         mode = 40
     end
 
-    mode = mod / 5
+    mode = mode / 5
 
     for i = 1, 8 do
         local header = raid[i]
