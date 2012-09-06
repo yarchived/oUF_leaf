@@ -454,6 +454,14 @@ local function styleFunc(settings, self, unit)
             self.EclipseBar = {
                 LunarBar = lunarBar,
                 SolarBar = solarBar,
+                Hide = function()
+                    lunarBar:Hide()
+                    solarBar:Hide()
+                end,
+                Show = function()
+                    lunarBar:Show()
+                    solarBar:Show()
+                end,
             }
         end
     end
