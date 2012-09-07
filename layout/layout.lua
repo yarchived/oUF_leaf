@@ -412,7 +412,7 @@ local function styleFunc(settings, self, unit)
 
             local manaBar = CreateFrame('StatusBar', nil, self)
             manaBar:SetStatusBarTexture(texture)
-            manaBar:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', 0, 0)
+            manaBar:SetPoint('BOTTOMLEFT', self, 'TOPLEFT')
             manaBar:SetPoint('RIGHT', self)
             manaBar:SetHeight(4)
 
@@ -428,36 +428,30 @@ local function styleFunc(settings, self, unit)
             manaBar.bg:SetVertexColor(r*.3, g*.3, b*.3)
             self.DruidMana = manaBar
 
+            local eclipseBar = CreateFrame('Frame', nil, self)
+            eclipseBar:SetBackdrop(backdrop)
+            eclipseBar:SetBackdropColor(0, 0, 0, .6)
+            eclipseBar:SetHeight(4)
 
-            local lunarBar = CreateFrame('StatusBar', nil, self)
-            local solarBar = CreateFrame('StatusBar', nil, self)
+            local lunarBar = CreateFrame('StatusBar', nil, eclipseBar)
+            local solarBar = CreateFrame('StatusBar', nil, eclipseBar)
             lunarBar.color = { 0, .6, .8 }
             solarBar.color = { 1, .56, 0 }
 
             for _, bar in next, { lunarBar, solarBar } do
                 bar:SetStatusBarTexture(texture)
-                bar:SetHeight(4)
-                bar:SetWidth(settings['initial-width'])
-
                 local r, g, b = unpack(bar.color)
                 bar:SetStatusBarColor(r, g, b)
             end
 
-            lunarBar:SetPoint('TOPLEFT', self.DruidMana)
+            lunarBar:SetAllPoints(eclipseBar)
             solarBar:SetPoint('LEFT', lunarBar:GetStatusBarTexture(), 'RIGHT')
+            eclipseBar:SetPoint('BOTTOMLEFT', self)
+            eclipseBar:SetPoint('RIGHT', self)
 
-            self.EclipseBar = {
-                LunarBar = lunarBar,
-                SolarBar = solarBar,
-                Hide = function()
-                    lunarBar:Hide()
-                    solarBar:Hide()
-                end,
-                Show = function()
-                    lunarBar:Show()
-                    solarBar:Show()
-                end,
-            }
+            eclipseBar.LunarBar = lunarBar
+            eclipseBar.SolarBar = solarBar
+            self.EclipseBar = eclipseBar
         end
     end
 
