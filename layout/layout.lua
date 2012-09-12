@@ -459,14 +459,19 @@ local function styleFunc(settings, self, unit)
         and unit == 'player' ) or ( unit == 'target' ) then
         local cpoints = {}
         for i = 1, 5 do
-            cpoints[i] = self.Power:CreateTexture(nil, 'OVERLAY')
-            cpoints[i]:SetHeight(8)
-            cpoints[i]:SetWidth(8)
-            cpoints[i]:SetTexture(bubbleTex)
+            local f = self.Power:CreateTexture(nil, 'OVERLAY')
+            cpoints[i] = f
+            f:SetHeight(8)
+            f:SetWidth(8)
+            f:SetTexture(bubbleTex)
             if i == 1 then
-                cpoints[i]:SetPoint('BOTTOMLEFT', unit == 'player' and 5 or 1, 0)
+                if(unit == 'target') then
+                    f:SetPoint('BOTTOMLEFT', 1, 0)
+                else
+                    f:SetPoint('TOPRIGHT', self, -35, 3)
+                end
             else
-                cpoints[i]:SetPoint('LEFT', cpoints[i-1], 'RIGHT', 1)
+                f:SetPoint('LEFT', cpoints[i-1], 'RIGHT', 1)
             end
         end
 
