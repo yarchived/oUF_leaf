@@ -565,6 +565,9 @@ units.tot:SetPoint('TOPRIGHT', units.target, 'BOTTOMRIGHT', 0, -5)
 
 units.focus = oUF:Spawn('focus', 'oUF_leaf_Focus')
 units.focus:SetPoint('TOPLEFT', units.player, 'BOTTOMLEFT', 0, -5)
+-- this should be in clickcast config
+units.focus:SetAttribute('alt-ctrl-type2', 'macro')
+units.focus:SetAttribute('macrotext', '/clearfocus')
 
 oUF:SetActiveStyle'leaf-Pet'
 units.pet = oUF:Spawn('pet', 'oUF_leaf_Pet')

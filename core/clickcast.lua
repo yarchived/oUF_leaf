@@ -97,7 +97,7 @@ local function make_binding_func()
         end
     end
 
-    --print(BINDING_STR)
+    -- print(BINDING_STR)
 
     local func, err = loadstring([[return function(self)
         ]] .. BINDING_STR .. [[
@@ -107,7 +107,6 @@ local function make_binding_func()
         ns.ClickCast.BindingFunc = func()
         ns.ClickCast.BINDING_STR = BINDING_STR
     else
-        -- it should work, fix it NOW!
         print('\n================================================================')
         print(BINDING_STR)
         print('================================================================')
