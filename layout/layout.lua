@@ -461,7 +461,7 @@ local function styleFunc(settings, self, unit)
         for i = 1, 5 do
             local f = self.Power:CreateTexture(nil, 'OVERLAY')
             cpoints[i] = f
-            f:SetSize(8)
+            f:SetSize(8, 8)
             f:SetTexture(bubbleTex)
             if i == 1 then
                 f:SetPoint('BOTTOMLEFT', 1, 0)
