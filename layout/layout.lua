@@ -404,6 +404,9 @@ local function styleFunc(settings, self, unit)
         self.threatpct.frequentUpdates = .2
         self:Tag(self.threatpct, '[leaf:threatpct]')
 
+
+
+
         if(class == 'DRUID') then
             --local druidPower = self.Health:CreateFontString(nil, 'OVERLAY')
             --druidPower:SetFont(STANDARD_TEXT_FONT, 11, 'OUTLINE')
@@ -453,21 +456,15 @@ local function styleFunc(settings, self, unit)
         end
     end
 
-    if( ( class == 'MONK' or class == 'PALADIN' or class == 'PRIEST' or class == 'WARLOCK' )
-        and unit == 'player' ) or ( unit == 'target' ) then
+    if( unit == 'target' ) then
         local cpoints = {}
         for i = 1, 5 do
             local f = self.Power:CreateTexture(nil, 'OVERLAY')
             cpoints[i] = f
-            f:SetHeight(8)
-            f:SetWidth(8)
+            f:SetSize(8)
             f:SetTexture(bubbleTex)
             if i == 1 then
-                if(unit == 'target') then
-                    f:SetPoint('BOTTOMLEFT', 1, 0)
-                else
-                    f:SetPoint('TOPRIGHT', self, -35, 3)
-                end
+                f:SetPoint('BOTTOMLEFT', 1, 0)
             else
                 f:SetPoint('LEFT', cpoints[i-1], 'RIGHT', 1)
             end
@@ -479,9 +476,35 @@ local function styleFunc(settings, self, unit)
         cpoints[4]:SetVertexColor(0.65, 0.63, 0.35)
         cpoints[5]:SetVertexColor(0.33, 0.59, 0.33)
 
-        cpoints.UpdateTexture = function() end
-        self.ClassIcons = cpoints
+        self.CPoints = cpoints
     end
+
+    if ( unit == 'player' and (
+        class == 'MONK' or
+        class == 'PALADIN' or
+        class == 'PRIEST' or
+        class == 'WARLOCK'
+        )) then
+
+        local cicons = {}
+        for i = 1, 5 do
+            local f = self.Health:CreateTexture(nil, 'OVERLAY')
+            cicons[i] = f
+            f:SetSize(8)
+            f:SetTexture(bubbleTex)
+            if(i == 1) then
+                f:SetPoint('TOPRIGHT', self, -35, 3)
+            else
+                f:SetPoint('LEFT', cicons[i-1], 'RIGHT', 1)
+            end
+            f:SetVertexColor(0.33, 0.59, 0.33)
+        end
+
+        -- cicons.UpdateTexture = function() end
+        self.ClassIcons = cicons
+    end
+
+
 
     self.RaidIcon = self.Health:CreateTexture(nil, 'OVERLAY')
     self.RaidIcon:SetPoint('TOP', self, 0, 8)
