@@ -490,7 +490,7 @@ local function styleFunc(settings, self, unit)
         for i = 1, 5 do
             local f = self.Health:CreateTexture(nil, 'OVERLAY')
             cicons[i] = f
-            f:SetSize(8)
+            f:SetSize(8, 8)
             f:SetTexture(bubbleTex)
             if(i == 1) then
                 f:SetPoint('TOPRIGHT', self, -35, 3)
