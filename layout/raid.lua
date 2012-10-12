@@ -207,7 +207,7 @@ local HealCommCreateBar = function(self, w, h)
     local bar = CreateFrame('StatusBar', nil, self.Health)
     bar:SetMinMaxValues(0, 1)
     bar:SetValue(1)
-    bar:SetStatusBarTexture(self.Health:GetStatusBarTexture():GetTexture())
+    bar:SetStatusBarTexture(texture)
     bar:SetStatusBarColor(0, 1, 0, .5)
     bar:SetFrameStrata'TOOLTIP'
     bar:SetSize(w, h)
@@ -240,8 +240,12 @@ local function styleFunc(settings, self, unit)
     self:RegisterForClicks('AnyUp')
     --self:SetAttribute('type3', 'menu')
     --self:SetAttribute('*type2', nil)
-    self:SetScript('OnEnter', UnitFrame_OnEnter)
-    self:SetScript('OnLeave', UnitFrame_OnLeave)
+    self:SetScript('OnEnter', function(...)
+        if(not InCombatLockdown()) then return UnitFrame_OnEnter(...) end
+    end)
+    self:SetScript('OnLeave', function(...)
+        if(not InCombatLockdown()) then return UnitFrame_OnEnter(...) end
+    end)
     --self:SetAttribute('initial-height', settings['initial-height'])
     --self:SetAttribute('initial-width', settings['initial-width'])
 
