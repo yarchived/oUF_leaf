@@ -15,11 +15,14 @@ local function PostCreateIcon(icons, button)
     button.overlay:SetTexCoord(0, 1, 0, 1)
     button.overlay:SetPoint('TOPLEFT', button, -1, 1)
     button.overlay:SetPoint('BOTTOMRIGHT', button, 1, -1)
-    --button.overlay:SetVertexColor(.25, .25, .25)
+    -- button.overlay:SetVertexColor(.25, .25, .25)
     button.overlay.SetVertexColor = noop
     button.overlay.Hide = noop
---  button:SetBackdrop(backdrop)
---  button:SetBackdropColor(0, 0, 0)
+    -- button:SetBackdrop(backdrop)
+    -- button:SetBackdropColor(0, 0, 0)
+
+    -- don't shine
+    button.noCooldownAnimation = true
 
     local parent = button:GetParent()
     if parent.noTooltip then
